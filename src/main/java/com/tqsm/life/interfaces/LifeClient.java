@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
  * @author qtx
  * @since 2023/8/21
  */
-@HttpExchange(value = "/results", contentType = MimeTypeUtils.APPLICATION_JSON_VALUE, accept = MimeTypeUtils.TEXT_HTML_VALUE)
+@HttpExchange(value = "/results")
 public interface LifeClient {
 
     /**
@@ -24,7 +24,7 @@ public interface LifeClient {
      * @param userId 设备号
      */
     @GetExchange("/state")
-    PersonState isPerson(@RequestParam String userId);
+    String isPerson(@RequestParam String userId);
 
     /**
      * 血压计算结果
