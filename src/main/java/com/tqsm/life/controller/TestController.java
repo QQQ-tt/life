@@ -1,6 +1,5 @@
 package com.tqsm.life.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.tqsm.life.config.Result;
 import com.tqsm.life.interfaces.LifeClient;
