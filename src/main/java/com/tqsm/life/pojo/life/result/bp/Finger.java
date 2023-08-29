@@ -1,4 +1,4 @@
-package com.tqsm.life.pojo.life;
+package com.tqsm.life.pojo.life.result.bp;
 
 import lombok.Data;
 
