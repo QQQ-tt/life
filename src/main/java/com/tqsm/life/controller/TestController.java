@@ -35,57 +35,50 @@ public class TestController {
 
     @GetMapping("/testPerson")
     public Result<PersonState> testPerson(){
-        return Result.success(JSONObject.parseObject(lifeClient.isPerson("29002c000851383131333635"), PersonState.class));
+        return Result.success(lifeClient.isPerson("29002c000851383131333635"));
     }
 
     @GetMapping("/testResultsBp")
     public Result<ResultsBp> testResultsBp(){
-        return Result.success(JSONObject.parseObject(lifeClient.bloodPressure("29002c000851383131333635"), ResultsBp.class));
+        return Result.success(lifeClient.bloodPressure("29002c000851383131333635"));
     }
 
     @GetMapping("/testResultsBpFigure")
     public Result<ResultBpFigure> testResultsBpFigure(){
-        return Result.success(JSONObject.parseObject(lifeClient.bloodPressureFigure("29002c000851383131333635"), ResultBpFigure.class));
+        return Result.success(lifeClient.bloodPressureFigure("29002c000851383131333635"));
     }
 
     @GetMapping("/testResultsBpSummary")
     public Result<BpSummary> testResultsBpSummary(){
-        return Result.success(JSONObject.parseObject(lifeClient.bloodPressureSummary("29002c000851383131333635"), BpSummary.class));
+        return Result.success(lifeClient.bloodPressureSummary("29002c000851383131333635"));
     }
 
     @GetMapping("/testResultsBpPubFigure")
     public Result<ResultBpPubFigure> testResultsBpPubFigure(){
-        return Result.success(JSONObject.parseObject(lifeClient.bloodPressurePubFigure("29002c000851383131333635"), ResultBpPubFigure.class));
+        return Result.success(lifeClient.bloodPressurePubFigure("29002c000851383131333635"));
     }
 
     @GetMapping("/testResultsFatiguePub")
     public Result<ResultsFatiguePub> testResultsFatiguePub(){
-        return Result.success(JSONObject.parseObject(lifeClient.fatiguePub("29002c000851383131333635"), ResultsFatiguePub.class));
+        return Result.success(lifeClient.fatiguePub("29002c000851383131333635"));
     }
 
     @GetMapping("/testResultsFatiguePubRhythm")
     public Result<ResultsFatiguePubRhythm> testResultsFatiguePubRhythm(){
-        return Result.success(JSONObject.parseObject(lifeClient.fatiguePubRhythm("29002c000851383131333635"), ResultsFatiguePubRhythm.class));
+        return Result.success(lifeClient.fatiguePubRhythm("29002c000851383131333635"));
     }
 
 
     @GetMapping("/testResultsFatiguePubSummary")
     public Result<PubSummary> testResultsFatiguePubSummary(){
-        return Result.success(JSONObject.parseObject(lifeClient.fatiguePubSummary("29002c000851383131333635"), PubSummary.class));
+        return Result.success(lifeClient.fatiguePubSummary("29002c000851383131333635"));
     }
 
     @GetMapping("/testResultsCache")
     public Result<ResultCache> testResultsCache(){
 
-        String dateTimeStr1 = "2023-08-17 09:45:27";
-        DateTimeFormatter df1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime BTime = LocalDateTime.parse(dateTimeStr1, df1);
-
-        String dateTimeStr2 = "2023-08-18 09:46:27";
-        DateTimeFormatter df2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime ETime = LocalDateTime.parse(dateTimeStr2, df2);
-
-        return Result.success(JSONObject.parseObject(lifeClient.cache("29002c000851383131333635",BTime,ETime),
-                ResultCache.class));
+        LocalDateTime BTime = LocalDateTime.of(2023, 8, 29, 9, 43, 20);
+        LocalDateTime ETime = LocalDateTime.of(2023, 8, 29, 18, 43, 20);
+        return Result.success(lifeClient.cache("29002c000851383131333635",BTime,ETime));
     }
 }

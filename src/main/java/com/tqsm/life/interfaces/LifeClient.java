@@ -1,5 +1,14 @@
 package com.tqsm.life.interfaces;
 
+import com.tqsm.life.pojo.life.PersonState;
+import com.tqsm.life.pojo.life.result.bp.ResultsBp;
+import com.tqsm.life.pojo.life.result.bp.figure.ResultBpFigure;
+import com.tqsm.life.pojo.life.result.bp.pub.figure.ResultBpPubFigure;
+import com.tqsm.life.pojo.life.result.bp.summary.BpSummary;
+import com.tqsm.life.pojo.life.result.cache.ResultCache;
+import com.tqsm.life.pojo.life.result.fatigue.pub.PubSummary;
+import com.tqsm.life.pojo.life.result.fatigue.pub.ResultsFatiguePub;
+import com.tqsm.life.pojo.life.result.fatigue.pub.rhythm.ResultsFatiguePubRhythm;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.service.annotation.GetExchange;
@@ -22,7 +31,7 @@ public interface LifeClient {
      * @param userId 设备号
      */
     @GetExchange("/state")
-    String isPerson(@RequestParam String userId);
+    PersonState isPerson(@RequestParam String userId);
 
     /**
      * 血压计算结果
@@ -30,7 +39,7 @@ public interface LifeClient {
      * @param userId 设备号
      */
     @GetExchange("/bp")
-    String bloodPressure(@RequestParam String userId);
+    ResultsBp bloodPressure(@RequestParam String userId);
 
     /**
      * 血压波形结果
@@ -38,7 +47,7 @@ public interface LifeClient {
      * @param userId 设备号
      */
     @GetExchange("/bp/figure")
-    String bloodPressureFigure(@RequestParam String userId);
+    ResultBpFigure bloodPressureFigure(@RequestParam String userId);
 
     /**
      * 血压统计结果
@@ -46,7 +55,7 @@ public interface LifeClient {
      * @param userId 设备号
      */
     @GetExchange("/bp/summary")
-    String bloodPressureSummary(@RequestParam String userId);
+    BpSummary bloodPressureSummary(@RequestParam String userId);
 
     /**
      * 血压波形最新点结果
@@ -54,7 +63,7 @@ public interface LifeClient {
      * @param userId 设备号
      */
     @GetExchange("/bp/pub/figure")
-    String bloodPressurePubFigure(@RequestParam String userId);
+    ResultBpPubFigure bloodPressurePubFigure(@RequestParam String userId);
 
     /**
      * 疲劳计算结果
@@ -62,7 +71,7 @@ public interface LifeClient {
      * @param userId 设备号
      */
     @GetExchange("/fatigue/pub")
-    String fatiguePub(@RequestParam String userId);
+    ResultsFatiguePub fatiguePub(@RequestParam String userId);
 
     /**
      * 疲劳节律图最新点
@@ -70,7 +79,7 @@ public interface LifeClient {
      * @param userId 设备号
      */
     @GetExchange("/fatigue/pub/rhythm")
-    String fatiguePubRhythm(@RequestParam String userId);
+    ResultsFatiguePubRhythm fatiguePubRhythm(@RequestParam String userId);
 
     /**
      * 疲劳统计结果
@@ -78,7 +87,7 @@ public interface LifeClient {
      * @param userId 设备号
      */
     @GetExchange("/fatigue/pub/summary")
-    String fatiguePubSummary(@RequestParam String userId);
+    PubSummary fatiguePubSummary(@RequestParam String userId);
 
     /**
      * 缓存结果
@@ -86,6 +95,6 @@ public interface LifeClient {
      * @param userId 设备号
      */
     @GetExchange("/cache")
-    String cache(@RequestParam String userId,
-            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime bTime, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime eTime);
+    ResultCache cache(@RequestParam String userId,
+                      @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime bTime, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime eTime);
 }
