@@ -18,9 +18,15 @@ public class BaseEntity {
     @TableId
     private Integer id;
 
+    @TableField(fill = FieldFill.INSERT)
+    private String createBy;
+
     @JsonIgnore
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createOn;
+
+    @TableField(fill = FieldFill.UPDATE)
+    private String updateBy;
 
     @JsonIgnore
     @TableField(fill = FieldFill.UPDATE)
