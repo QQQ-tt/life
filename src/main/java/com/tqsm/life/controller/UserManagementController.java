@@ -5,7 +5,7 @@ import com.tqsm.life.config.Result;
 import com.tqsm.life.entity.UserManagement;
 import com.tqsm.life.pojo.dto.UserManagementDTO;
 import com.tqsm.life.pojo.vo.UserManagementVO;
-import com.tqsm.life.service.IUserManagementService;
+import com.tqsm.life.service.UserManagementService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserManagementController {
 
     @Autowired
-    private IUserManagementService userManagementService;
+    private UserManagementService userManagementService;
 
     @PostMapping("/saveOrUpdateNew")
     @Operation(summary = "人员管理-新增或编辑")

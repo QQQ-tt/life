@@ -14,7 +14,7 @@ import com.tqsm.life.pojo.vo.UserManagementVO;
  * @author qtx
  * @since 2023-08-31
  */
-public interface IUserManagementService extends IService<UserManagement> {
+public interface UserManagementService extends IService<UserManagement> {
 
     boolean saveOrUpdateNew(UserManagement dto);
 

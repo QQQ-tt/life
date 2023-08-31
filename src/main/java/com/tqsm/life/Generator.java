@@ -59,6 +59,8 @@ public class Generator {
                                 "请输入表名，多个英文逗号分隔？所有输入 all")))
                         .controllerBuilder()
                         .enableRestStyle()
+                        .serviceBuilder()
+                        .formatServiceFileName("%sService")
                         .entityBuilder()
                         .disableSerialVersionUID()
                         .enableLombok()

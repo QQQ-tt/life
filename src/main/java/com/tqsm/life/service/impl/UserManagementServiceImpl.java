@@ -1,6 +1,5 @@
 package com.tqsm.life.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -10,15 +9,12 @@ import com.tqsm.life.entity.UserManagement;
 import com.tqsm.life.mapper.UserManagementMapper;
 import com.tqsm.life.pojo.dto.UserManagementDTO;
 import com.tqsm.life.pojo.vo.UserManagementVO;
-import com.tqsm.life.service.IUserManagementService;
+import com.tqsm.life.service.UserManagementService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -30,7 +26,7 @@ import java.util.Objects;
  * @since 2023-08-31
  */
 @Service
-public class UserManagementServiceImpl extends ServiceImpl<UserManagementMapper, UserManagement> implements IUserManagementService {
+public class UserManagementServiceImpl extends ServiceImpl<UserManagementMapper, UserManagement> implements UserManagementService {
 
     @Autowired
     private UserManagementMapper userManagementMapper;
