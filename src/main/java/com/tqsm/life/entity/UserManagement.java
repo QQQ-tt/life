@@ -3,6 +3,7 @@ package com.tqsm.life.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.tqsm.life.config.BaseEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,6 +23,7 @@ public class UserManagement extends BaseEntity {
     /**
      * 姓名
      */
+    @Schema(description = "姓名")
     @TableField("name")
     private String name;
 

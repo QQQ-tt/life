@@ -1,28 +1,29 @@
 package com.tqsm.life.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.tqsm.life.config.Result;
 import com.tqsm.life.interfaces.LifeClient;
 import com.tqsm.life.pojo.life.PersonState;
 import com.tqsm.life.pojo.life.result.bp.ResultsBp;
 import com.tqsm.life.pojo.life.result.bp.figure.ResultBpFigure;
+import com.tqsm.life.pojo.life.result.bp.pub.figure.ResultBpPubFigure;
+import com.tqsm.life.pojo.life.result.bp.summary.BpSummary;
 import com.tqsm.life.pojo.life.result.cache.ResultCache;
 import com.tqsm.life.pojo.life.result.fatigue.pub.PubSummary;
 import com.tqsm.life.pojo.life.result.fatigue.pub.ResultsFatiguePub;
-import com.tqsm.life.pojo.life.result.bp.pub.figure.ResultBpPubFigure;
 import com.tqsm.life.pojo.life.result.fatigue.pub.rhythm.ResultsFatiguePubRhythm;
-import com.tqsm.life.pojo.life.result.bp.summary.BpSummary;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * @author qtx
  * @since 2023/8/28
  */
+@Tag(name = "测试controller")
 @RestController
 @RequestMapping("/test")
 public class TestController {
@@ -33,6 +34,7 @@ public class TestController {
         this.lifeClient = lifeClient;
     }
 
+    @Operation(summary = "get测试接口testPerson")
     @GetMapping("/testPerson")
     public Result<PersonState> testPerson(){
         return Result.success(lifeClient.isPerson("29002c000851383131333635"));
