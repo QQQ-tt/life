@@ -19,6 +19,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
     public void insertFill(MetaObject metaObject) {
         log.info("start insert fill ....");
         this.strictInsertFill(metaObject, "createOn", LocalDateTime.class, LocalDateTime.now());
+        this.strictInsertFill(metaObject, "createBy", String.class, "system");
         log.info("end insert fill ...");
     }
 
@@ -26,6 +27,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
     public void updateFill(MetaObject metaObject) {
         log.info("start update fill ....");
         this.strictUpdateFill(metaObject, "updateOn", LocalDateTime.class, LocalDateTime.now());
+        this.strictUpdateFill(metaObject, "updateBy", String.class, "system");
         log.info("end update fill ...");
     }
 }

@@ -3,7 +3,7 @@ package com.tqsm.life;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+@SpringBootTest(classes = LifeApplication.class)
 class LifeApplicationTests {
 
     @Test
