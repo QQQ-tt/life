@@ -8,26 +8,23 @@ import lombok.Setter;
 
 /**
  * <p>
- * 设备管理
+ * 设备监测记录
  * </p>
  *
  * @author qtx
- * @since 2023-08-31
+ * @since 2023-09-04
  */
 @Getter
 @Setter
-@TableName("device_management")
-public class DeviceManagement extends BaseEntity {
+@TableName("device_monitor_log")
+public class DeviceMonitorLog extends BaseEntity {
+
+    @TableField("device_user_id")
+    private Integer deviceUserId;
 
     /**
-     * 设备名称
+     * 历史记录
      */
-    @TableField("device_name")
-    private String deviceName;
-
-    /**
-     * 设备编号
-     */
-    @TableField("device_code")
-    private String deviceCode;
+    @TableField("is_his")
+    private Boolean isHis;
 }
