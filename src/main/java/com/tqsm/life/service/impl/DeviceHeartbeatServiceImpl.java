@@ -9,6 +9,7 @@ import com.tqsm.life.pojo.life.PersonState;
 import com.tqsm.life.service.DeviceHeartbeatService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tqsm.life.service.DeviceManagementService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +25,7 @@ import java.util.List;
  * @author qtx
  * @since 2023-09-04
  */
+@Slf4j
 @Service
 public class DeviceHeartbeatServiceImpl extends ServiceImpl<DeviceHeartbeatMapper, DeviceHeartbeat> implements DeviceHeartbeatService {
 
@@ -39,12 +41,13 @@ public class DeviceHeartbeatServiceImpl extends ServiceImpl<DeviceHeartbeatMappe
     }
 
     @Override
-    @Scheduled(fixedDelay = 5000)
+    //@Scheduled(fixedDelay = 5000)
     @Transactional(rollbackFor = Exception.class)
     public void deviceHeart() {
         if (state) {
             state = false;
             try {
+                log.info("设备心跳记录...");
                 List<DeviceManagement> list = deviceManagementService.list();
                 remove(Wrappers.lambdaUpdate());
                 List<DeviceHeartbeat> heartbeats = new ArrayList<>();
