@@ -10,6 +10,7 @@ import com.tqsm.life.service.DeviceHeartbeatService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tqsm.life.service.DeviceManagementService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,7 +36,7 @@ public class DeviceHeartbeatServiceImpl extends ServiceImpl<DeviceHeartbeatMappe
 
     private final DeviceManagementService deviceManagementService;
 
-    public DeviceHeartbeatServiceImpl(LifeClient lifeClient, DeviceManagementService deviceManagementService) {
+    public DeviceHeartbeatServiceImpl(LifeClient lifeClient,@Lazy DeviceManagementService deviceManagementService) {
         this.lifeClient = lifeClient;
         this.deviceManagementService = deviceManagementService;
     }

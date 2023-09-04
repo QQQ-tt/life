@@ -18,4 +18,14 @@ public interface DeviceManagementService extends IService<DeviceManagement> {
 
     IPage<DeviceManagementVO> listDevice(DeviceManagementDTO dto);
 
+    void getDeviceInfoByDeviceId(int deviceId);
+
+    boolean saveOrUpdateDevice(DeviceManagement deviceManagement);
+
+    boolean bindThePatient(int deviceId, int userId);
+
+    boolean testDevice(String deviceCode);
+
+    boolean removeByDeviceId(int deviceId);
+
 }

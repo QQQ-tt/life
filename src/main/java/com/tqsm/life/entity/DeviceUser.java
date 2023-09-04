@@ -7,7 +7,7 @@ import lombok.*;
 
 /**
  * <p>
- * 设备监测记录
+ * 设备患者关联表
  * </p>
  *
  * @author qtx
@@ -18,11 +18,20 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("device_monitor_log")
-public class DeviceMonitorLog extends BaseEntity {
+@TableName("device_user")
+public class DeviceUser extends BaseEntity {
 
-    @TableField("device_user_id")
-    private Integer deviceUserId;
+    /**
+     * 设备id
+     */
+    @TableField("device_id")
+    private Integer deviceId;
+
+    /**
+     * 患者id
+     */
+    @TableField("user_id")
+    private Integer userId;
 
     /**
      * 历史记录

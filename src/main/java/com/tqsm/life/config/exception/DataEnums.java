@@ -45,6 +45,10 @@ public enum DataEnums {
     PLATFORM_IS_FAIL("服务编号不匹配", 205),
     /** 身份证信息错误 */
     ID_CARD_IS_FAIL("身份证信息错误", 206),
+    /**
+     * 数据重复
+     */
+    DATA_REPEAT("数据重复", 201),
     /** 入参数据异常 */
     DATA_IS_ABNORMAL("入参数据异常", 205);
 

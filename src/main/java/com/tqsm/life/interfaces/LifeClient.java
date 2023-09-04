@@ -28,73 +28,73 @@ public interface LifeClient {
     /**
      * 有人/无人
      *
-     * @param userId 设备号
+     * @param deviceId 设备号
      */
     @GetExchange("/state")
-    PersonState isPerson(@RequestParam String userId);
+    PersonState isPerson(@RequestParam String deviceId);
 
     /**
      * 血压计算结果
      *
-     * @param userId 设备号
+     * @param deviceId 设备号
      */
     @GetExchange("/bp")
-    ResultsBp bloodPressure(@RequestParam String userId);
+    ResultsBp bloodPressure(@RequestParam String deviceId);
 
     /**
      * 血压波形结果
      *
-     * @param userId 设备号
+     * @param deviceId 设备号
      */
     @GetExchange("/bp/figure")
-    ResultBpFigure bloodPressureFigure(@RequestParam String userId);
+    ResultBpFigure bloodPressureFigure(@RequestParam String deviceId);
 
     /**
      * 血压统计结果
      *
-     * @param userId 设备号
+     * @param deviceId 设备号
      */
     @GetExchange("/bp/summary")
-    BpSummary bloodPressureSummary(@RequestParam String userId);
+    BpSummary bloodPressureSummary(@RequestParam String deviceId);
 
     /**
      * 血压波形最新点结果
      *
-     * @param userId 设备号
+     * @param deviceId 设备号
      */
     @GetExchange("/bp/pub/figure")
-    ResultBpPubFigure bloodPressurePubFigure(@RequestParam String userId);
+    ResultBpPubFigure bloodPressurePubFigure(@RequestParam String deviceId);
 
     /**
      * 疲劳计算结果
      *
-     * @param userId 设备号
+     * @param deviceId 设备号
      */
     @GetExchange("/fatigue/pub")
-    ResultsFatiguePub fatiguePub(@RequestParam String userId);
+    ResultsFatiguePub fatiguePub(@RequestParam String deviceId);
 
     /**
      * 疲劳节律图最新点
      *
-     * @param userId 设备号
+     * @param deviceId 设备号
      */
     @GetExchange("/fatigue/pub/rhythm")
-    ResultsFatiguePubRhythm fatiguePubRhythm(@RequestParam String userId);
+    ResultsFatiguePubRhythm fatiguePubRhythm(@RequestParam String deviceId);
 
     /**
      * 疲劳统计结果
      *
-     * @param userId 设备号
+     * @param deviceId 设备号
      */
     @GetExchange("/fatigue/pub/summary")
-    PubSummary fatiguePubSummary(@RequestParam String userId);
+    PubSummary fatiguePubSummary(@RequestParam String deviceId);
 
     /**
      * 缓存结果
      *
-     * @param userId 设备号
+     * @param deviceId 设备号
      */
     @GetExchange("/cache")
-    ResultCache cache(@RequestParam String userId,
+    ResultCache cache(@RequestParam String deviceId,
                       @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime bTime, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime eTime);
 }

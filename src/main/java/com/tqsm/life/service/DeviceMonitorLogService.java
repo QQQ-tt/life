@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface DeviceMonitorLogService extends IService<DeviceMonitorLog> {
 
+    boolean theRecordingStartsAndEnds(int deviceUserId);
 }
