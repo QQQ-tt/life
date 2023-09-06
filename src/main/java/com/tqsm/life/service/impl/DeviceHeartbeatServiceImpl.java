@@ -42,7 +42,7 @@ public class DeviceHeartbeatServiceImpl extends ServiceImpl<DeviceHeartbeatMappe
     }
 
     @Override
-    //@Scheduled(fixedDelay = 5000)
+    @Scheduled(fixedDelay = 5000)
     @Transactional(rollbackFor = Exception.class)
     public void deviceHeart() {
         if (state) {
@@ -57,8 +57,6 @@ public class DeviceHeartbeatServiceImpl extends ServiceImpl<DeviceHeartbeatMappe
                     PersonState person = lifeClient.isPerson(deviceCode);
                     boolean no = !"无人".equals(person.getText());
                     boolean online = "0".equals(person.getCode());
-                    save(DeviceHeartbeat.builder()
-                            .build());
                     heartbeats.add(DeviceHeartbeat.builder()
                             .deviceId(e.getId())
                             .person(no)
