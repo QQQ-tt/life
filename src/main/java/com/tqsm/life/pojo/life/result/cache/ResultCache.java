@@ -1,5 +1,6 @@
 package com.tqsm.life.pojo.life.result.cache;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.util.List;
@@ -19,9 +20,11 @@ public class ResultCache {
 
     private String message;
 
-    private List<datas> datasList;
+    private List<datas> datas;
 
+    @JsonProperty("user_id")
     private Integer userId;
 
+    @JsonProperty("device_id")
     private String deviceId;
 }

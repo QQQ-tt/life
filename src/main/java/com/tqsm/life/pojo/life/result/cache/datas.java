@@ -1,5 +1,6 @@
 package com.tqsm.life.pojo.life.result.cache;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -44,21 +45,25 @@ public class datas {
     /**
      * moving_count：体动值。
      */
+    @JsonProperty("moving_count")
     private Integer movingCount;
 
     /**
      * br_exception：呼吸异常。其中：1 异常，0 正常
      */
+    @JsonProperty("br_exception")
     private Integer brException;
 
     /**
      * hr_exception：心率异常。其中：1 异常，0
      */
+    @JsonProperty("hr_exception")
     private Integer hrException;
 
     /**
      * rhythm_points：节律图点，范围从 0.46~1.
      */
+    @JsonProperty("rhythm_points")
     private BigDecimal[] rhythmPoints;
 
 
