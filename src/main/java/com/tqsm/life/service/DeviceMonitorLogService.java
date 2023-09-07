@@ -1,7 +1,10 @@
 package com.tqsm.life.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.tqsm.life.entity.DeviceMonitorLog;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.tqsm.life.pojo.dto.DeviceMonitorLogDTO;
+import com.tqsm.life.pojo.vo.DeviceMonitorLogPageVO;
 
 /**
  * <p>
@@ -14,4 +17,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface DeviceMonitorLogService extends IService<DeviceMonitorLog> {
 
     boolean theRecordingStartsAndEnds(int deviceUserId);
+
+    IPage<DeviceMonitorLogPageVO> historyPage(DeviceMonitorLogDTO dto);
 }

@@ -1,13 +1,13 @@
 package com.tqsm.life.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.tqsm.life.config.Result;
+import com.tqsm.life.pojo.dto.DeviceMonitorLogDTO;
+import com.tqsm.life.pojo.vo.DeviceMonitorLogPageVO;
 import com.tqsm.life.service.DeviceMonitorLogService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -32,5 +32,11 @@ public class DeviceMonitorLogController {
     @GetMapping("/theRecordingStartsAndEnds")
     public Object theRecordingStartsAndEnds(@RequestParam int deviceUserId){
         return Result.success(service.theRecordingStartsAndEnds(deviceUserId));
+    }
+
+    @Operation(summary = "历史记录列表")
+    @PostMapping("/historyPage")
+    public Result<IPage<DeviceMonitorLogPageVO>> historyPage(@RequestBody DeviceMonitorLogDTO dto){
+        return Result.success(service.historyPage(dto));
     }
 }

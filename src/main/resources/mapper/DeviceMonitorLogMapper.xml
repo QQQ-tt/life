@@ -2,4 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tqsm.life.mapper.DeviceMonitorLogMapper">
 
+    <select id="historyPage" resultType="com.tqsm.life.pojo.vo.DeviceMonitorLogPageVO">
+        SELECT
+            id,
+            device_user_id,
+            create_on,
+            update_on,
+            CONCAT(TIMESTAMPDIFF(MINUTE, create_on, update_on),'分钟') AS listening
+        FROM
+            device_monitor_log
+        WHERE
+            1 = 1
+          AND delete_flag = '0'
+          AND is_his = '1'
+        <if test="pageDTO.deviceUserId != null">
+            AND device_user_id =#{pageDTO.deviceUserId}
+        </if>
+    </select>
 </mapper>
