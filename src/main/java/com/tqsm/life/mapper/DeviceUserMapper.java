@@ -1,8 +1,14 @@
 package com.tqsm.life.mapper;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tqsm.life.entity.DeviceUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.tqsm.life.pojo.dto.DeviceUserPageDTO;
+import com.tqsm.life.pojo.vo.DeviceUserPageVO;
+import com.tqsm.life.pojo.vo.UserManagementVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -15,4 +21,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface DeviceUserMapper extends BaseMapper<DeviceUser> {
 
+    IPage<DeviceUserPageVO> listDeviceUserPage(Page<UserManagementVO> page,@Param("pageDTO")DeviceUserPageDTO dto);
 }

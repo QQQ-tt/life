@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
  * @author qtx
  * @since 2023-08-31
  */
-@Tag(name = "人员管理Controller")
+@Tag(name = "人员管理")
 @RestController
 @RequestMapping("/life/userManagement")
 public class UserManagementController {
