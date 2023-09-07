@@ -19,5 +19,5 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface DeviceManagementMapper extends BaseMapper<DeviceManagement> {
 
-    IPage<DeviceManagementVO> selectPageNew(IPage<Object> page,@Param("dto") DeviceManagementDTO dto);
+    IPage<DeviceManagementVO> selectPageNew(IPage<DeviceManagement> page,@Param("dto") DeviceManagementDTO dto);
 }

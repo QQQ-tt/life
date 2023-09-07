@@ -9,14 +9,14 @@ import lombok.Data;
  * @since 2023/8/31 11:36
  */
 @Data
-public class PageDTO {
+public class PageDTO<T> {
 
-    private Integer pageSize;
+    private long pageSize;
 
-    private Integer pageNum;
+    private long pageNum;
 
     @JsonIgnore
-    public IPage<Object> getPage() {
+    public IPage<T> getPage() {
         return com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO.of(pageNum, pageSize);
     }
 }

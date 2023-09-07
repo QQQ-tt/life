@@ -42,14 +42,14 @@ public class DeviceMonitorLogServiceImpl extends ServiceImpl<DeviceMonitorLogMap
             long count = deviceUserService.count(Wrappers.lambdaQuery(DeviceUser.class)
                     .eq(BaseEntity::getId, deviceUserId)
                     .eq(DeviceUser::getIsHis, Boolean.FALSE));
-            if (count == 1){
+            if (count == 1) {
                 return save(DeviceMonitorLog.builder()
                         .deviceUserId(deviceUserId)
                         .build());
             }
             throw new DataException(DataEnums.DATA_IS_ABNORMAL);
         } else {
-            return update(Wrappers.lambdaUpdate(DeviceMonitorLog.class)
+            return update(new DeviceMonitorLog(), Wrappers.lambdaUpdate(DeviceMonitorLog.class)
                     .eq(DeviceMonitorLog::getDeviceUserId, deviceUserId)
                     .eq(DeviceMonitorLog::getIsHis, Boolean.FALSE)
                     .set(DeviceMonitorLog::getIsHis, Boolean.TRUE));

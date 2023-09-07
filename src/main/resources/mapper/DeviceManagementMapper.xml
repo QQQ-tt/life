@@ -10,15 +10,22 @@
                um.sex,
                um.id_card,
                um.tel,
-               IF(SUBSTRING(um.id_card, -1) = 'X', '女',
-                  IF(CAST(SUBSTRING(um.id_card, 18, 1) AS SIGNED) % 2 = 1, '男', '女')) as gender,
+               CASE
+                    WHEN LENGTH(id_card) = 15 THEN
+                        TIMESTAMPDIFF(YEAR, STR_TO_DATE(
+                        CONCAT('19', SUBSTR(id_card, 7, 2), '-', SUBSTR(id_card, 9, 2), '-', SUBSTR(id_card, 11, 2)),
+                        '%Y-%m-%d'), CURDATE())
+                    WHEN LENGTH(id_card) = 18 THEN
+                        TIMESTAMPDIFF(YEAR, STR_TO_DATE(
+                        CONCAT(SUBSTR(id_card, 7, 4), '-', SUBSTR(id_card, 11, 2), '-', SUBSTR(id_card, 13, 2)),
+                        '%Y-%m-%d'), CURDATE())
+                    END AS age,
                h.person
         from device_management m
                  left join device_user u on m.id = u.device_id and m.delete_flag = u.delete_flag
                  left join user_management um on u.user_id = um.id and u.delete_flag = um.delete_flag
                  left join device_heartbeat h on m.id = h.device_id and m.delete_flag = h.delete_flag
         where m.delete_flag = false
-          and u.is_his = false
         <if test="dto.deviceName != null and dto.deviceName != ''">
             and m.device_name like '%${dto.deviceName}%'
         </if>

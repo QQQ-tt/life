@@ -1,6 +1,7 @@
 package com.tqsm.life.pojo.dto;
 
 import com.tqsm.life.config.PageDTO;
+import com.tqsm.life.entity.DeviceManagement;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -9,7 +10,7 @@ import lombok.Data;
  * @since 2023/9/1
  */
 @Data
-public class DeviceManagementDTO extends PageDTO {
+public class DeviceManagementDTO extends PageDTO<DeviceManagement> {
 
     /**
      * 设备名称
