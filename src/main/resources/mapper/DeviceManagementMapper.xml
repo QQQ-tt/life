@@ -20,7 +20,8 @@
                         CONCAT(SUBSTR(id_card, 7, 4), '-', SUBSTR(id_card, 11, 2), '-', SUBSTR(id_card, 13, 2)),
                         '%Y-%m-%d'), CURDATE())
                     END AS age,
-               h.person
+               h.person,
+               h.online
         from device_management m
                  left join device_user u on m.id = u.device_id and m.delete_flag = u.delete_flag
                  left join user_management um on u.user_id = um.id and u.delete_flag = um.delete_flag

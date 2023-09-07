@@ -37,4 +37,6 @@ public class DeviceManagementVO {
     @Schema(description = "有人无人")
     private Boolean person;
 
+    @Schema(description = "是否在线")
+    private Boolean online;
 }
