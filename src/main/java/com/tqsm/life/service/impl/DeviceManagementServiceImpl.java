@@ -14,13 +14,25 @@ import com.tqsm.life.interfaces.LifeClient;
 import com.tqsm.life.mapper.DeviceManagementMapper;
 import com.tqsm.life.pojo.dto.DeviceManagementDTO;
 import com.tqsm.life.pojo.life.PersonState;
+import com.tqsm.life.pojo.life.result.bp.Bp;
+import com.tqsm.life.pojo.life.result.bp.Other;
+import com.tqsm.life.pojo.life.result.bp.Result;
+import com.tqsm.life.pojo.life.result.bp.ResultsBp;
+import com.tqsm.life.pojo.life.result.bp.pub.figure.Br;
+import com.tqsm.life.pojo.life.result.bp.pub.figure.Hr;
+import com.tqsm.life.pojo.life.result.bp.pub.figure.ResultBpPubFigure;
+import com.tqsm.life.pojo.life.result.fatigue.pub.PubSummary;
+import com.tqsm.life.pojo.life.result.fatigue.pub.rhythm.ResultsFatiguePubRhythm;
 import com.tqsm.life.pojo.vo.DeviceManagementVO;
+import com.tqsm.life.pojo.vo.DeviceParticularsVO;
 import com.tqsm.life.service.DeviceHeartbeatService;
 import com.tqsm.life.service.DeviceManagementService;
 import com.tqsm.life.service.DeviceMonitorLogService;
 import com.tqsm.life.service.DeviceUserService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -112,5 +124,50 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
         deviceHeartbeatService.remove(Wrappers.lambdaUpdate(DeviceHeartbeat.class).eq(DeviceHeartbeat::getDeviceId,
                 deviceId));
         return remove;
+    }
+
+    @Override
+    public DeviceParticularsVO particulars(String userId) {
+        DeviceParticularsVO deviceParticularsVO = new DeviceParticularsVO();
+        ResultsBp resultsBp = lifeClient.bloodPressure(userId);
+        ResultsFatiguePubRhythm resultsFatiguePubRhythm = lifeClient.fatiguePubRhythm(userId);
+        ResultBpPubFigure resultBpPubFigure = lifeClient.bloodPressurePubFigure(userId);
+        PubSummary pubSummary = lifeClient.fatiguePubSummary(userId);
+        if (resultsBp!=null){
+            //血压计算结果
+            Bp bp = resultsBp.getBp();
+            Result result = resultsBp.getResult();
+            Other other = resultsBp.getOther();
+            deviceParticularsVO.setHr(result.getHr());
+            deviceParticularsVO.setBr(result.getBr());
+            deviceParticularsVO.setSbp(bp.getSbp());
+            deviceParticularsVO.setDbp(bp.getDbp());
+            deviceParticularsVO.setTs(bp.getTs());
+            deviceParticularsVO.setSbpFigure(bp.getSbpFigure());
+            deviceParticularsVO.setDbpFigure(bp.getDbpFigure());
+            deviceParticularsVO.setMovingCount(other.getMovingCount());
+        }
+        if (resultsFatiguePubRhythm!=null){
+            //节律图
+            BigDecimal[] buffer = resultsFatiguePubRhythm.getBuffer();
+            deviceParticularsVO.setBuffer(buffer);
+        }
+        if (resultBpPubFigure!=null){
+            //呼吸波形
+            Br br = resultBpPubFigure.getBr();
+            BigDecimal[] brFigure = br.getBrFigure();
+            deviceParticularsVO.setBrFigure(brFigure);
+            //BCG波形|心冲击信号
+            Hr hr = resultBpPubFigure.getHr();
+            BigDecimal[] bcgFigure = hr.getBcgFigure();
+            deviceParticularsVO.setBcgFigure(bcgFigure);
+
+        }
+        if (pubSummary!=null){
+            //心率趋势
+            BigDecimal[] bmpBuffer = pubSummary.getBmpBuffer();
+            deviceParticularsVO.setBmpBuffer(bmpBuffer);
+        }
+        return deviceParticularsVO;
     }
 }

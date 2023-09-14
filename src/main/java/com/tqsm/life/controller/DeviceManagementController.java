@@ -5,6 +5,7 @@ import com.tqsm.life.config.Result;
 import com.tqsm.life.entity.DeviceManagement;
 import com.tqsm.life.pojo.dto.DeviceManagementDTO;
 import com.tqsm.life.pojo.vo.DeviceManagementVO;
+import com.tqsm.life.pojo.vo.DeviceParticularsVO;
 import com.tqsm.life.service.DeviceManagementService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -58,4 +59,12 @@ public class DeviceManagementController {
     public Result<Boolean> removeByDeviceId(@RequestParam int deviceId) {
         return Result.success(service.removeByDeviceId(deviceId));
     }
+
+    @Operation(summary = "详情")
+    @GetMapping("/particulars")
+    public Result<DeviceParticularsVO> particulars() {
+        String userId = "29002c000851383131333635";
+        return Result.success(service.particulars(userId));
+    }
+
 }

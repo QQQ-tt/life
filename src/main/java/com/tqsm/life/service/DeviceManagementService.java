@@ -5,6 +5,7 @@ import com.tqsm.life.entity.DeviceManagement;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.tqsm.life.pojo.dto.DeviceManagementDTO;
 import com.tqsm.life.pojo.vo.DeviceManagementVO;
+import com.tqsm.life.pojo.vo.DeviceParticularsVO;
 
 /**
  * <p>
@@ -28,4 +29,5 @@ public interface DeviceManagementService extends IService<DeviceManagement> {
 
     boolean removeByDeviceId(int deviceId);
 
+    DeviceParticularsVO particulars(String userId);
 }
