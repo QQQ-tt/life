@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tqsm.life.mapper.DeviceUserMapper">
+
+    <select id="listDeviceUserPage" resultType="com.tqsm.life.pojo.vo.DeviceUserPageVO">
+        SELECT
+            u.id,
+            u.user_id,
+            u.device_id,
+            m.`name`,
+            (YEAR (CURDATE()) - SUBSTRING( m.id_card, 7, 4 )) AS age,
+            m.sex,
+            m.id_card,
+            m.tel,
+            d.device_name,
+            d.device_code
+        FROM
+            device_user u
+                LEFT JOIN user_management m ON u.user_id = m.id
+                LEFT JOIN device_management d ON u.device_id = d.id
+        WHERE
+            1 = 1
+          AND u.delete_flag = '0'
+          AND m.delete_flag = '0'
+          AND d.delete_flag = '0'
+        <if test="pageDTO.name != null and pageDTO.name != ''">
+            AND m.name like '%${pageDTO.name}%'
+        </if>
+        <if test="pageDTO.idCard != null and pageDTO.idCard != ''">
+            AND m.id_card like '%${pageDTO.idCard}%'
+        </if>
+        <if test="pageDTO.sex != null">
+            AND m.sex = #{pageDTO.sex}
+        </if>
+        <if test="pageDTO.deviceName != null and pageDTO.deviceName != ''">
+            AND d.device_name like '%${pageDTO.deviceName}%'
+        </if>
+        <if test="pageDTO.deviceCode != null and pageDTO.deviceCode != ''">
+            AND d.device_code like '%${pageDTO.deviceCode}%'
+        </if>
+    </select>
+</mapper>
