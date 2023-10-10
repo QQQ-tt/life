@@ -38,30 +38,28 @@ public class UserManagementServiceImpl extends ServiceImpl<UserManagementMapper,
         if (StringUtils.isBlank(idCard)){
             throw  new DataException(DataEnums.ID_CARD_IS_FAIL);
         }
-        UserManagement one = getOne(Wrappers.lambdaQuery(UserManagement.class)
-                .eq(StringUtils.isNotBlank(dto.getName()),
-                        UserManagement::getName,
-                        dto.getName())
-                .eq(dto.getSex()!=null,
-                        UserManagement::getSex,
-                        dto.getSex())
-                .eq(StringUtils.isNotBlank(dto.getIdCard()),
-                        UserManagement::getIdCard,
-                        dto.getIdCard())
-                .eq(StringUtils.isNotBlank(dto.getTel()),
-                        UserManagement::getTel,
-                        dto.getTel())
-                .or()
-                .ne(dto.getId() == null,
-                        UserManagement::getId,
-                        dto.getId()));
-        if (Objects.isNull(one)) {
+//        UserManagement one = getOne(Wrappers.lambdaQuery(UserManagement.class)
+//                .eq(StringUtils.isNotBlank(dto.getName()),
+//                        UserManagement::getName,
+//                        dto.getName())
+//                .eq(dto.getSex()!=null,
+//                        UserManagement::getSex,
+//                        dto.getSex())
+//                .eq(StringUtils.isNotBlank(dto.getIdCard()),
+//                        UserManagement::getIdCard,
+//                        dto.getIdCard())
+////                .eq(StringUtils.isNotBlank(dto.getTel()),
+////                        UserManagement::getTel,
+////                        dto.getTel())
+//                .or()
+//                .ne(dto.getId() == null,
+//                        UserManagement::getId,
+//                        dto.getId()));
+//        if (Objects.isNull(one)) {
             return saveOrUpdate(dto);
-        } else {
-            throw new DataException(DataEnums.FAILED);
-        }
-
-
+//        } else {
+//            throw new DataException(DataEnums.FAILED);
+//        }
     }
 
     @Override

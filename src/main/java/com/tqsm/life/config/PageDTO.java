@@ -11,9 +11,9 @@ import lombok.Data;
 @Data
 public class PageDTO<T> {
 
-    private long pageSize;
-
     private long pageNum;
+
+    private long pageSize;
 
     @JsonIgnore
     public IPage<T> getPage() {
