@@ -42,7 +42,7 @@ public class DeviceHeartbeatServiceImpl extends ServiceImpl<DeviceHeartbeatMappe
     }
 
     @Override
-//    @Scheduled(fixedDelay = 5000)
+    @Scheduled(fixedDelay = 5000)
     @Transactional(rollbackFor = Exception.class)
     public void deviceHeart() {
         if (state) {
