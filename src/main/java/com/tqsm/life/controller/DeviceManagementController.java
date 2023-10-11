@@ -48,6 +48,13 @@ public class DeviceManagementController {
         return Result.success(service.bindThePatient(deviceId, userId));
     }
 
+    @Operation(summary = "解除绑定")
+    @GetMapping("/relieveThePatient")
+    public Result<Boolean> relieveThePatient(@RequestParam int deviceId) {
+        return Result.success(service.relieveThePatient(deviceId));
+    }
+
+
     @Operation(summary = "设备连接测试")
     @GetMapping("/testDevice")
     public Result<Boolean> testDevice(@RequestParam String deviceCode) {

@@ -26,7 +26,7 @@
                  left join device_user u on m.id = u.device_id and m.delete_flag = u.delete_flag
                  left join user_management um on u.user_id = um.id and u.delete_flag = um.delete_flag
                  left join device_heartbeat h on m.id = h.device_id and m.delete_flag = h.delete_flag
-        where m.delete_flag = false
+        where m.delete_flag = false and u.is_his = false
         <if test="dto.deviceName != null and dto.deviceName != ''">
             and m.device_name like '%${dto.deviceName}%'
         </if>

@@ -100,6 +100,13 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
     }
 
     @Override
+    public boolean relieveThePatient(int deviceId) {
+        return deviceUserService.update(Wrappers.lambdaUpdate(DeviceUser.class)
+                .eq(DeviceUser::getDeviceId, deviceId)
+                .set(DeviceUser::getIsHis, Boolean.TRUE));
+    }
+
+    @Override
     public boolean testDevice(String deviceCode) {
         boolean flag = false;
         PersonState person = lifeClient.isPerson(deviceCode);
@@ -121,8 +128,9 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
         deviceMonitorLogService.removeBatchByIds(list.stream()
                 .map(BaseEntity::getId)
                 .collect(Collectors.toList()));
-        deviceHeartbeatService.remove(Wrappers.lambdaUpdate(DeviceHeartbeat.class).eq(DeviceHeartbeat::getDeviceId,
-                deviceId));
+        deviceHeartbeatService.remove(Wrappers.lambdaUpdate(DeviceHeartbeat.class)
+                .eq(DeviceHeartbeat::getDeviceId,
+                        deviceId));
         return remove;
     }
 
@@ -133,7 +141,7 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
         ResultsFatiguePubRhythm resultsFatiguePubRhythm = lifeClient.fatiguePubRhythm(userId);
         ResultBpPubFigure resultBpPubFigure = lifeClient.bloodPressurePubFigure(userId);
         PubSummary pubSummary = lifeClient.fatiguePubSummary(userId);
-        if (resultsBp!=null){
+        if (resultsBp != null) {
             //血压计算结果
             Bp bp = resultsBp.getBp();
             Result result = resultsBp.getResult();
@@ -147,12 +155,12 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
             deviceParticularsVO.setDbpFigure(bp.getDbpFigure());
             deviceParticularsVO.setMovingCount(other.getMovingCount());
         }
-        if (resultsFatiguePubRhythm!=null){
+        if (resultsFatiguePubRhythm != null) {
             //节律图
             BigDecimal[] buffer = resultsFatiguePubRhythm.getBuffer();
             deviceParticularsVO.setBuffer(buffer);
         }
-        if (resultBpPubFigure!=null){
+        if (resultBpPubFigure != null) {
             //呼吸波形
             Br br = resultBpPubFigure.getBr();
             BigDecimal[] brFigure = br.getBrFigure();
@@ -163,7 +171,7 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
             deviceParticularsVO.setBcgFigure(bcgFigure);
 
         }
-        if (pubSummary!=null){
+        if (pubSummary != null) {
             //心率趋势
             BigDecimal[] bmpBuffer = pubSummary.getBmpBuffer();
             deviceParticularsVO.setBmpBuffer(bmpBuffer);
