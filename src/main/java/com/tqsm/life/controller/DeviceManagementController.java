@@ -69,9 +69,8 @@ public class DeviceManagementController {
 
     @Operation(summary = "详情")
     @GetMapping("/particulars")
-    public Result<DeviceParticularsVO> particulars() {
-        String userId = "29002c000851383131333635";
-        return Result.success(service.particulars(userId));
+    public Result<DeviceParticularsVO> particulars(@RequestParam String deviceCode) {
+        return Result.success(service.particulars(deviceCode));
     }
 
 }
