@@ -5,6 +5,7 @@
     <select id="selectPageNew" resultType="com.tqsm.life.pojo.vo.DeviceManagementVO">
         select m.device_code,
                m.device_name,
+               m.id,
                u.id                                                                     as device_user_id,
                um.name,
                um.sex,

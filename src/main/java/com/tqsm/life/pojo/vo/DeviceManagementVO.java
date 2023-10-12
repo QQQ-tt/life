@@ -10,6 +10,9 @@ import lombok.Data;
 @Data
 public class DeviceManagementVO {
 
+    @Schema(description = "设备id")
+    private String id;
+
     @Schema(description = "设备编码")
     private String deviceCode;
 
