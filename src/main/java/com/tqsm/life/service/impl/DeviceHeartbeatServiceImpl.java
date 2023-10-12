@@ -48,7 +48,6 @@ public class DeviceHeartbeatServiceImpl extends ServiceImpl<DeviceHeartbeatMappe
         if (state) {
             state = false;
             try {
-                log.info("设备心跳记录...");
                 List<DeviceManagement> list = deviceManagementService.list();
                 remove(Wrappers.lambdaUpdate());
                 List<DeviceHeartbeat> heartbeats = new ArrayList<>();
@@ -56,7 +55,7 @@ public class DeviceHeartbeatServiceImpl extends ServiceImpl<DeviceHeartbeatMappe
                     String deviceCode = e.getDeviceCode();
                     PersonState person = lifeClient.isPerson(deviceCode);
                     boolean no = !"无人".equals(person.getText());
-                    boolean online = "0".equals(person.getCode());
+                    boolean online = "0".equals(person.getCode()) || "1".equals(person.getCode());
                     heartbeats.add(DeviceHeartbeat.builder()
                             .deviceId(e.getId())
                             .person(no)
