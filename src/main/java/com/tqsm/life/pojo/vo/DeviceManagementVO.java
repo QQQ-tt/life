@@ -42,4 +42,7 @@ public class DeviceManagementVO {
 
     @Schema(description = "是否在线")
     private Boolean online;
+
+    @Schema(description = "监测状态")
+    private Boolean monitoring;
 }

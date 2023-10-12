@@ -22,11 +22,13 @@
                         '%Y-%m-%d'), CURDATE())
                     END AS age,
                h.person,
-               h.online
+               h.online,
+               l.is_his as monitoring
         from device_management m
                  left join device_user u on m.id = u.device_id and m.delete_flag = u.delete_flag and u.is_his = false
                  left join user_management um on u.user_id = um.id and u.delete_flag = um.delete_flag
                  left join device_heartbeat h on m.id = h.device_id and m.delete_flag = h.delete_flag
+                 left join device_monitor_log l on u.id = l.device_user_id and l.update_by is null
         where m.delete_flag = false
         <if test="dto.deviceName != null and dto.deviceName != ''">
             and m.device_name like '%${dto.deviceName}%'
