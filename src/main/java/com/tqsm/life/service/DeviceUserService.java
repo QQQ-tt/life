@@ -5,6 +5,9 @@ import com.tqsm.life.entity.DeviceUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.tqsm.life.pojo.dto.DeviceUserPageDTO;
 import com.tqsm.life.pojo.vo.DeviceUserPageVO;
+import com.tqsm.life.pojo.vo.HistoricalParticularsVO;
+
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -18,4 +21,6 @@ public interface DeviceUserService extends IService<DeviceUser> {
 
 
     IPage<DeviceUserPageVO> listDeviceUserPage(DeviceUserPageDTO dto);
+
+    HistoricalParticularsVO historyDetails(String id, LocalDateTime bTime, LocalDateTime eTime);
 }

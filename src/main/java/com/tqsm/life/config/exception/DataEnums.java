@@ -49,6 +49,10 @@ public enum DataEnums {
      * 数据重复
      */
     DATA_REPEAT("数据重复", 201),
+    /**
+     * 缓存
+     */
+    DATA_CACHE_NULL("缓存数据为空", 201),
     /** 入参数据异常 */
     DATA_IS_ABNORMAL("入参数据异常", 205);
 
