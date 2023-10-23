@@ -13,13 +13,19 @@ import java.math.BigDecimal;
 public class DeviceParticularsVO {
 
     /**
+     * 疲劳计算结果
+     */
+    @Schema(description = "疲劳值")
+    private Integer score;
+
+    /**
      * 血压计算结果
      */
 
     @Schema(description = "心率")
     private Integer hr;
 
-    @Schema(description = "呼吸")
+    @Schema(description = "呼吸率")
     private Integer br;
 
     @Schema(description = "收缩压")
@@ -60,5 +66,8 @@ public class DeviceParticularsVO {
      */
     @Schema(description = "心率值趋势")
     private BigDecimal[] bmpBuffer;
+
+    @Schema(description = "疲劳值波形")
+    private BigDecimal[] fatigueBuffer;
 
 }

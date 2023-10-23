@@ -22,6 +22,7 @@ import com.tqsm.life.pojo.life.result.bp.pub.figure.Br;
 import com.tqsm.life.pojo.life.result.bp.pub.figure.Hr;
 import com.tqsm.life.pojo.life.result.bp.pub.figure.ResultBpPubFigure;
 import com.tqsm.life.pojo.life.result.fatigue.pub.PubSummary;
+import com.tqsm.life.pojo.life.result.fatigue.pub.ResultsFatiguePub;
 import com.tqsm.life.pojo.life.result.fatigue.pub.rhythm.ResultsFatiguePubRhythm;
 import com.tqsm.life.pojo.vo.DeviceManagementVO;
 import com.tqsm.life.pojo.vo.DeviceParticularsVO;
@@ -141,6 +142,7 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
         ResultsFatiguePubRhythm resultsFatiguePubRhythm = lifeClient.fatiguePubRhythm(userId);
         ResultBpPubFigure resultBpPubFigure = lifeClient.bloodPressurePubFigure(userId);
         PubSummary pubSummary = lifeClient.fatiguePubSummary(userId);
+        ResultsFatiguePub resultsFatiguePub = lifeClient.fatiguePub(userId);
         if (resultsBp != null) {
             //血压计算结果
             Bp bp = resultsBp.getBp();
@@ -174,7 +176,13 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
         if (pubSummary != null) {
             //心率趋势
             BigDecimal[] bmpBuffer = pubSummary.getBmpBuffer();
+            BigDecimal[] fatigueBuffer = pubSummary.getFatigueBuffer();
             deviceParticularsVO.setBmpBuffer(bmpBuffer);
+            deviceParticularsVO.setFatigueBuffer(fatigueBuffer);
+        }
+        if (resultsFatiguePub.getCode().equals(1)&&resultsFatiguePub.getState().equals(1)){
+            Integer score = resultsFatiguePub.getScore();
+            deviceParticularsVO.setScore(score);
         }
         return deviceParticularsVO;
     }
