@@ -61,6 +61,9 @@ public class DeviceParticularsVO {
     @Schema(description = "BCG波形（心冲击信号）")
     private BigDecimal[] bcgFigure;
 
+    @Schema(description = "ECG波形（心电信号）")
+    private BigDecimal[] ecgFigure;
+
     /**
      * 统计结果
      */

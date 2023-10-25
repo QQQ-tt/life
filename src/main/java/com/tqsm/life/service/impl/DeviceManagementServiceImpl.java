@@ -57,7 +57,9 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
 
     private final LifeClient lifeClient;
 
-    public DeviceManagementServiceImpl(DeviceUserService deviceUserService, DeviceMonitorLogService deviceMonitorLogService, DeviceHeartbeatService deviceHeartbeatService, LifeClient lifeClient) {
+    public DeviceManagementServiceImpl(DeviceUserService deviceUserService,
+                                       DeviceMonitorLogService deviceMonitorLogService,
+                                       DeviceHeartbeatService deviceHeartbeatService, LifeClient lifeClient) {
         this.deviceUserService = deviceUserService;
         this.deviceMonitorLogService = deviceMonitorLogService;
         this.deviceHeartbeatService = deviceHeartbeatService;
@@ -80,8 +82,7 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
                 .eq(StringUtils.isNotBlank(deviceManagement.getDeviceCode()),
                         DeviceManagement::getDeviceCode,
                         deviceManagement.getDeviceCode())
-                .ne(deviceManagement.getId() != null, BaseEntity::getId,
-                        deviceManagement.getId()));
+                .ne(deviceManagement.getId() != null, BaseEntity::getId, deviceManagement.getId()));
         if (count < 1) {
             return saveOrUpdate(deviceManagement);
         } else {
@@ -94,10 +95,7 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
         deviceUserService.update(Wrappers.lambdaUpdate(DeviceUser.class)
                 .eq(DeviceUser::getDeviceId, deviceId)
                 .set(DeviceUser::getIsHis, Boolean.TRUE));
-        return deviceUserService.save(DeviceUser.builder()
-                .deviceId(deviceId)
-                .userId(userId)
-                .build());
+        return deviceUserService.save(DeviceUser.builder().deviceId(deviceId).userId(userId).build());
     }
 
     @Override
@@ -120,18 +118,13 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
 
     @Override
     public boolean removeByDeviceId(int deviceId) {
-        boolean remove = remove(Wrappers.lambdaQuery(DeviceManagement.class)
-                .eq(BaseEntity::getId, deviceId));
+        boolean remove = remove(Wrappers.lambdaQuery(DeviceManagement.class).eq(BaseEntity::getId, deviceId));
         List<DeviceUser> list = deviceUserService.list(Wrappers.lambdaQuery(DeviceUser.class)
                 .eq(DeviceUser::getDeviceId, deviceId));
-        deviceUserService.remove(Wrappers.lambdaUpdate(DeviceUser.class)
-                .eq(DeviceUser::getDeviceId, deviceId));
-        deviceMonitorLogService.removeBatchByIds(list.stream()
-                .map(BaseEntity::getId)
-                .collect(Collectors.toList()));
+        deviceUserService.remove(Wrappers.lambdaUpdate(DeviceUser.class).eq(DeviceUser::getDeviceId, deviceId));
+        deviceMonitorLogService.removeBatchByIds(list.stream().map(BaseEntity::getId).collect(Collectors.toList()));
         deviceHeartbeatService.remove(Wrappers.lambdaUpdate(DeviceHeartbeat.class)
-                .eq(DeviceHeartbeat::getDeviceId,
-                        deviceId));
+                .eq(DeviceHeartbeat::getDeviceId, deviceId));
         return remove;
     }
 
@@ -148,39 +141,55 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
             Bp bp = resultsBp.getBp();
             Result result = resultsBp.getResult();
             Other other = resultsBp.getOther();
-            deviceParticularsVO.setHr(result.getHr());
-            deviceParticularsVO.setBr(result.getBr());
-            deviceParticularsVO.setSbp(bp.getSbp());
-            deviceParticularsVO.setDbp(bp.getDbp());
-            deviceParticularsVO.setTs(bp.getTs());
-            deviceParticularsVO.setSbpFigure(bp.getSbpFigure());
-            deviceParticularsVO.setDbpFigure(bp.getDbpFigure());
-            deviceParticularsVO.setMovingCount(other.getMovingCount());
+            if (result != null) {
+                deviceParticularsVO.setHr(result.getHr());
+                deviceParticularsVO.setBr(result.getBr());
+            }
+            if (bp != null) {
+                deviceParticularsVO.setSbp(bp.getSbp());
+                deviceParticularsVO.setDbp(bp.getDbp());
+                deviceParticularsVO.setTs(bp.getTs());
+                deviceParticularsVO.setSbpFigure(bp.getSbpFigure());
+                deviceParticularsVO.setDbpFigure(bp.getDbpFigure());
+            }
+            if (other!=null) {
+                deviceParticularsVO.setMovingCount(other.getMovingCount());
+            }
+
         }
         if (resultsFatiguePubRhythm != null) {
             //节律图
             BigDecimal[] buffer = resultsFatiguePubRhythm.getBuffer();
-            deviceParticularsVO.setBuffer(buffer);
+            if (buffer!=null){
+                deviceParticularsVO.setBuffer(buffer);
+            }
         }
         if (resultBpPubFigure != null) {
             //呼吸波形
             Br br = resultBpPubFigure.getBr();
-            BigDecimal[] brFigure = br.getBrFigure();
-            deviceParticularsVO.setBrFigure(brFigure);
-            //BCG波形|心冲击信号
+            if (br!=null){
+                BigDecimal[] brFigure = br.getBrFigure();
+                deviceParticularsVO.setBrFigure(brFigure);
+            }
+            //BCG波形|心冲击信号  ECG波形|心电信号
             Hr hr = resultBpPubFigure.getHr();
-            BigDecimal[] bcgFigure = hr.getBcgFigure();
-            deviceParticularsVO.setBcgFigure(bcgFigure);
-
+            if (hr!=null){
+                BigDecimal[] bcgFigure = hr.getBcgFigure();
+                BigDecimal[] ecgFigure = hr.getEcgFigure();
+                deviceParticularsVO.setEcgFigure(ecgFigure);
+                deviceParticularsVO.setBcgFigure(bcgFigure);
+            }
         }
         if (pubSummary != null) {
             //心率趋势
             BigDecimal[] bmpBuffer = pubSummary.getBmpBuffer();
-            BigDecimal[] fatigueBuffer = pubSummary.getFatigueBuffer();
-            deviceParticularsVO.setBmpBuffer(bmpBuffer);
-            deviceParticularsVO.setFatigueBuffer(fatigueBuffer);
+            if (bmpBuffer!=null){
+                BigDecimal[] fatigueBuffer = pubSummary.getFatigueBuffer();
+                deviceParticularsVO.setBmpBuffer(bmpBuffer);
+                deviceParticularsVO.setFatigueBuffer(fatigueBuffer);
+            }
         }
-        if (resultsFatiguePub.getCode().equals(1)&&resultsFatiguePub.getState().equals(1)){
+        if (resultsFatiguePub.getCode().equals(1) && resultsFatiguePub.getState().equals(1)) {
             Integer score = resultsFatiguePub.getScore();
             deviceParticularsVO.setScore(score);
         }

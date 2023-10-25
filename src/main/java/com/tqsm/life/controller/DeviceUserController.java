@@ -36,9 +36,6 @@ public class DeviceUserController {
     @Autowired
     private DeviceUserService deviceUserService;
 
-    @Autowired
-    private LifeClient lifeClient;
-
     @PostMapping("/listDeviceUserPage")
     @Operation(summary = "监测人员列表分页查询")
     public Result<IPage<DeviceUserPageVO>> listDeviceUserPage(@RequestBody DeviceUserPageDTO dto) {
