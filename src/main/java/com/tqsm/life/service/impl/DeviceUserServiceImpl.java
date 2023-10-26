@@ -8,9 +8,7 @@ import com.tqsm.life.mapper.DeviceUserMapper;
 import com.tqsm.life.pojo.dto.DeviceUserPageDTO;
 import com.tqsm.life.pojo.life.result.cache.ResultCache;
 import com.tqsm.life.pojo.life.result.cache.datas;
-import com.tqsm.life.pojo.vo.DeviceUserPageVO;
-import com.tqsm.life.pojo.vo.HistoricalParticularsVO;
-import com.tqsm.life.pojo.vo.UserManagementVO;
+import com.tqsm.life.pojo.vo.*;
 import com.tqsm.life.service.DeviceUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
@@ -47,7 +45,11 @@ public class DeviceUserServiceImpl extends ServiceImpl<DeviceUserMapper, DeviceU
 
     @Override
     public HistoricalParticularsVO historyDetails(String id, LocalDateTime bTime, LocalDateTime eTime) {
-        HistoricalParticularsVO h =new HistoricalParticularsVO();
+        HistoricalParticularsVO h = new HistoricalParticularsVO();
+        List<HistoricalHrExceptionVO> hrExceptionVOList = new ArrayList<>();
+        List<HistoricalBrExceptionVO> brExceptionVOList = new ArrayList<>();
+        HistoricalHrExceptionVO hrExceptionVO = null;
+        HistoricalBrExceptionVO brExceptionVO = null;
         ResultCache cache = lifeClient.cache(id, bTime, eTime);
         if (cache.getCode() != 0) {
             throw new RuntimeException(cache.getMessage());
@@ -55,17 +57,42 @@ public class DeviceUserServiceImpl extends ServiceImpl<DeviceUserMapper, DeviceU
         List<datas> datas = cache.getDatas();
         h.setState(cache.getCode());
         if (!datas.isEmpty()) {
-            List<Integer> hrs = datas.stream().map(com.tqsm.life.pojo.life.result.cache.datas::getHr).toList();
-            List<Integer> brs = datas.stream().map(com.tqsm.life.pojo.life.result.cache.datas::getBr).toList();
+            //收缩压
             List<Integer> sbps = datas.stream().map(com.tqsm.life.pojo.life.result.cache.datas::getSbp).toList();
+            //舒张压
             List<Integer> dbps = datas.stream().map(com.tqsm.life.pojo.life.result.cache.datas::getDbp).toList();
-            List<Integer> movingCounts = datas.stream().map(com.tqsm.life.pojo.life.result.cache.datas::getMovingCount).toList();
-            h.setHr(hrs);
-            h.setBr(brs);
-            h.setDbp(dbps);
-            h.setSbp(sbps);
-            h.setMovingCount(movingCounts);
+            //体动
+            List<Integer> movingCounts = datas.stream()
+                    .map(com.tqsm.life.pojo.life.result.cache.datas::getMovingCount)
+                    .toList();
+            if (!sbps.isEmpty() && !dbps.isEmpty()) {
+                h.setDbp(dbps);
+                h.setSbp(sbps);
+            }
+            if (!movingCounts.isEmpty()) {
+                h.setMovingCount(movingCounts);
+            }
         }
+        for (datas t : datas) {
+            hrExceptionVO = new HistoricalHrExceptionVO();
+            brExceptionVO = new HistoricalBrExceptionVO();
+            Integer br = t.getBr();
+            Integer brException = t.getBrException();
+            if (br != null && brException != null) {
+                brExceptionVO.setBr(br);
+                brExceptionVO.setBr_exception(brException);
+            }
+            Integer hr = t.getHr();
+            Integer hrException = t.getHrException();
+            if (hr != null && hrException != null) {
+                hrExceptionVO.setHr(hr);
+                hrExceptionVO.setHrException(hrException);
+            }
+            brExceptionVOList.add(brExceptionVO);
+            hrExceptionVOList.add(hrExceptionVO);
+        }
+        h.setHrList(hrExceptionVOList);
+        h.setBrList(brExceptionVOList);
         return h;
     }
 }

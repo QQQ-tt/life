@@ -20,12 +20,12 @@ public class HistoricalParticularsVO {
     /**
      * hr：心率值
      */
-    private List<Integer> hr;
+    private List<HistoricalHrExceptionVO> hrList;
 
     /**
      * br：呼吸值
      */
-    private List<Integer> br;
+    private List<HistoricalBrExceptionVO> brList;
 
     /**
      * sbp：收缩压
