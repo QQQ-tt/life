@@ -28,6 +28,12 @@ public class DeviceParticularsVO {
     @Schema(description = "呼吸率")
     private Integer br;
 
+    @Schema(description = "心率异常")
+    private Integer hrException;
+
+    @Schema(description = "呼吸异常")
+    private Integer brException;
+
     @Schema(description = "收缩压")
     private Integer sbp;
 
@@ -39,6 +45,12 @@ public class DeviceParticularsVO {
 
     @Schema(description = "体动")
     private Integer movingCount;
+
+    @Schema(description = "运动异常")
+    private Integer moveException;
+
+    @Schema(description = "显示结果可能存在异常")
+    private Integer resultException;
 
     @Schema(description = "舒张压区间值")
     private BigDecimal[] sbpFigure;

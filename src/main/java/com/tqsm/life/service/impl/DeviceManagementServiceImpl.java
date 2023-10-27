@@ -15,6 +15,7 @@ import com.tqsm.life.mapper.DeviceManagementMapper;
 import com.tqsm.life.pojo.dto.DeviceManagementDTO;
 import com.tqsm.life.pojo.life.PersonState;
 import com.tqsm.life.pojo.life.result.bp.Bp;
+import com.tqsm.life.pojo.life.result.bp.Exception;
 import com.tqsm.life.pojo.life.result.bp.Other;
 import com.tqsm.life.pojo.life.result.bp.Result;
 import com.tqsm.life.pojo.life.result.bp.ResultsBp;
@@ -141,6 +142,7 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
             Bp bp = resultsBp.getBp();
             Result result = resultsBp.getResult();
             Other other = resultsBp.getOther();
+            Exception exception = resultsBp.getException();
             if (result != null) {
                 deviceParticularsVO.setHr(result.getHr());
                 deviceParticularsVO.setBr(result.getBr());
@@ -154,6 +156,12 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
             }
             if (other!=null) {
                 deviceParticularsVO.setMovingCount(other.getMovingCount());
+            }
+            if (exception!=null){
+                deviceParticularsVO.setHrException(exception.getHrException());
+                deviceParticularsVO.setBrException(exception.getBrException());
+                deviceParticularsVO.setMoveException(exception.getMoveException());
+                deviceParticularsVO.setResultException(exception.getResultException());
             }
 
         }
