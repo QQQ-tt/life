@@ -10,6 +10,7 @@
         (YEAR (CURDATE()) - SUBSTRING( id_card, 7, 4 )) AS age,
         sex,
         tel,
+        inpatient_no,
         delete_flag
         FROM
         `user_management`

@@ -28,4 +28,7 @@ public class UserManagementVO {
 
     @Schema(description = "手机号")
     private String tel;
+
+    @Schema(description = "住院证号")
+    private String inpatientNo;
 }
