@@ -17,4 +17,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class AlarmSettingServiceImpl extends ServiceImpl<AlarmSettingMapper, AlarmSetting> implements AlarmSettingService {
 
+    @Override
+    public boolean saveOrUpdateNew(AlarmSetting dto) {
+        return saveOrUpdate(dto);
+    }
 }

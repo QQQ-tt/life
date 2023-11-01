@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface AlarmSettingService extends IService<AlarmSetting> {
 
+    boolean saveOrUpdateNew(AlarmSetting dto);
 }
