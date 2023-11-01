@@ -34,4 +34,10 @@ public class AlarmSettingController {
         return Result.success(alarmSettingService.saveOrUpdateNew(dto));
     }
 
+    @PostMapping("/queryAlarmSetting")
+    @Operation(summary = "设置查询")
+    public Result<AlarmSetting> queryAlarmSetting() {
+        return Result.success(alarmSettingService.queryAlarmSetting());
+    }
+
 }
