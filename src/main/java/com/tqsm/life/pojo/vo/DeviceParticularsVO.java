@@ -61,7 +61,7 @@ public class DeviceParticularsVO {
     /**
      * 节律图最新点
      */
-    @Schema(description = "节律图点")
+    @Schema(description = "节律图点（心率趋势图）")
     private BigDecimal[] buffer;
 
     /**
@@ -78,6 +78,7 @@ public class DeviceParticularsVO {
 
     /**
      * 统计结果
+     * 精神疲劳活跃度
      */
     @Schema(description = "心率值趋势")
     private BigDecimal[] bmpBuffer;
