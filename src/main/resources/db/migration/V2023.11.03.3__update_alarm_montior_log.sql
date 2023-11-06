@@ -1,0 +1,2 @@
+ALTER TABLE `life`.`alarm_montior_log`
+    CHANGE COLUMN `exception _item` `exception_item` varchar (50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '异常项目' AFTER `monitoring_time`;
