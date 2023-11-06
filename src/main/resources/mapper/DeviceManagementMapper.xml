@@ -23,7 +23,7 @@
         END AS age,
         h.person,
         h.online,
-        l.is_his as monitoring
+        ifnull(l.is_his,true) as monitoring
         from device_management m
         left join device_user u on m.id = u.device_id and m.delete_flag = u.delete_flag and u.is_his = false
         left join user_management um on u.user_id = um.id and u.delete_flag = um.delete_flag
@@ -38,6 +38,9 @@
         </if>
         <if test="dto.state != null">
             and h.person = #{dto.state}
+        </if>
+        <if test="dto.deviceId != null">
+            and m.id = #{dto.deviceId}
         </if>
     </select>
 </mapper>

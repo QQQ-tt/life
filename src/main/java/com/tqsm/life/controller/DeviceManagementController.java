@@ -3,6 +3,7 @@ package com.tqsm.life.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.tqsm.life.config.Result;
 import com.tqsm.life.entity.DeviceManagement;
+import com.tqsm.life.entity.DeviceUser;
 import com.tqsm.life.pojo.dto.DeviceManagementDTO;
 import com.tqsm.life.pojo.vo.DeviceManagementVO;
 import com.tqsm.life.pojo.vo.DeviceParticularsVO;
@@ -44,13 +45,13 @@ public class DeviceManagementController {
 
     @Operation(summary = "设备绑定")
     @GetMapping("/bindThePatient")
-    public Result<Boolean> bindThePatient(@RequestParam int deviceId, @RequestParam int userId) {
+    public Result<DeviceManagementVO> bindThePatient(@RequestParam int deviceId, @RequestParam int userId) {
         return Result.success(service.bindThePatient(deviceId, userId));
     }
 
     @Operation(summary = "解除绑定")
     @GetMapping("/relieveThePatient")
-    public Result<Boolean> relieveThePatient(@RequestParam int deviceId) {
+    public Result<DeviceManagementVO> relieveThePatient(@RequestParam int deviceId) {
         return Result.success(service.relieveThePatient(deviceId));
     }
 

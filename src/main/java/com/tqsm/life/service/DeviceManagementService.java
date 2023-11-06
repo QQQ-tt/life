@@ -23,9 +23,9 @@ public interface DeviceManagementService extends IService<DeviceManagement> {
 
     boolean saveOrUpdateDevice(DeviceManagement deviceManagement);
 
-    boolean bindThePatient(int deviceId, int userId);
+    DeviceManagementVO bindThePatient(int deviceId, int userId);
 
-    boolean relieveThePatient(int deviceId);
+    DeviceManagementVO relieveThePatient(int deviceId);
 
     boolean testDevice(String deviceCode);
 

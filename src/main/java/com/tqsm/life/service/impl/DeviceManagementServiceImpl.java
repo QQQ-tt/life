@@ -3,6 +3,7 @@ package com.tqsm.life.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tqsm.life.config.BaseEntity;
 import com.tqsm.life.config.exception.DataEnums;
@@ -11,6 +12,7 @@ import com.tqsm.life.entity.*;
 import com.tqsm.life.interfaces.LifeClient;
 import com.tqsm.life.mapper.AlarmSettingMapper;
 import com.tqsm.life.mapper.DeviceManagementMapper;
+import com.tqsm.life.mapper.DeviceUserMapper;
 import com.tqsm.life.pojo.dto.DeviceManagementDTO;
 import com.tqsm.life.pojo.life.PersonState;
 import com.tqsm.life.pojo.life.result.bp.Bp;
@@ -28,7 +30,6 @@ import com.tqsm.life.pojo.vo.DeviceManagementVO;
 import com.tqsm.life.pojo.vo.DeviceParticularsVO;
 import com.tqsm.life.service.*;
 import jakarta.annotation.Resource;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -62,6 +63,9 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
 
     @Resource
     private AlarmMontiorLogService alarmMontiorLogService;
+
+    @Resource
+    private DeviceUserMapper deviceUserMapper;
 
     public DeviceManagementServiceImpl(DeviceUserService deviceUserService,
                                        DeviceMonitorLogService deviceMonitorLogService,
@@ -129,18 +133,41 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
     }
 
     @Override
-    public boolean bindThePatient(int deviceId, int userId) {
+    @Transactional
+    public DeviceManagementVO bindThePatient(int deviceId, int userId) {
+        DeviceManagementVO deviceManagementVO = new DeviceManagementVO();
+        DeviceManagementDTO deviceManagementDTO = new DeviceManagementDTO();
+        deviceManagementDTO.setDeviceId(deviceId);
         deviceUserService.update(Wrappers.lambdaUpdate(DeviceUser.class)
                 .eq(DeviceUser::getDeviceId, deviceId)
                 .set(DeviceUser::getIsHis, Boolean.TRUE));
-        return deviceUserService.save(DeviceUser.builder().deviceId(deviceId).userId(userId).build());
+        deviceUserService.save(DeviceUser.builder().deviceId(deviceId).userId(userId).build());
+
+        IPage<DeviceManagementVO> deviceManagementVOIPage = baseMapper.selectPageNew(new Page<>(-1,-1),
+                deviceManagementDTO);
+        List<DeviceManagementVO> records = deviceManagementVOIPage.getRecords();
+        if (!records.isEmpty()){
+             deviceManagementVO = records.get(0);
+        }
+        return deviceManagementVO;
     }
 
     @Override
-    public boolean relieveThePatient(int deviceId) {
-        return deviceUserService.update(Wrappers.lambdaUpdate(DeviceUser.class)
+    @Transactional
+    public DeviceManagementVO relieveThePatient(int deviceId) {
+        DeviceManagementVO deviceManagementVO = new DeviceManagementVO();
+        DeviceManagementDTO deviceManagementDTO = new DeviceManagementDTO();
+        deviceManagementDTO.setDeviceId(deviceId);
+        deviceUserService.update(Wrappers.lambdaUpdate(DeviceUser.class)
                 .eq(DeviceUser::getDeviceId, deviceId)
                 .set(DeviceUser::getIsHis, Boolean.TRUE));
+        IPage<DeviceManagementVO> deviceManagementVOIPage = baseMapper.selectPageNew(new Page<>(-1,-1),
+                deviceManagementDTO);
+        List<DeviceManagementVO> records = deviceManagementVOIPage.getRecords();
+        if (!records.isEmpty()){
+            deviceManagementVO = records.get(0);
+        }
+        return deviceManagementVO;
     }
 
     @Override
@@ -177,7 +204,7 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
         PubSummary pubSummary = lifeClient.fatiguePubSummary(userId);
         ResultsFatiguePub resultsFatiguePub = lifeClient.fatiguePub(userId);
         //警报设置参数
-        AlarmSetting alarmSetting = alarmSettingMapper.selectAlarm();
+        AlarmSetting alarmSetting = alarmSettingMapper.selectAlarm(userId);
         if (resultsBp != null) {
             //血压计算结果
             Bp bp = resultsBp.getBp();
@@ -185,7 +212,7 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
             Other other = resultsBp.getOther();
             Exception exception = resultsBp.getException();
             if (result != null) {
-                if ((result.getHr() != 0 && result.getHr() <= alarmSetting.getHrLeft()) || (result.getHr() != 0 && result.getHr() >= alarmSetting.getHrRight())) {
+                if (((result.getHr() != 0 && result.getHr() <= alarmSetting.getHrLeft())&&result.getHr()!=null) || ((result.getHr() != 0 && result.getHr() >= alarmSetting.getHrRight())&&result.getHr()!=null)) {
                     alarmMontiorLog = new AlarmMontiorLog();
                     alarmMontiorLog.setDeviceCode(userId);
                     alarmMontiorLog.setMonitoringTime(LocalDateTime.now());
@@ -194,7 +221,7 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
                     alarmMontiorLog.setReferenceInterval(alarmSetting.getHrLeft() + "-" + alarmSetting.getHrRight());
                     alarmMontiorLogService.saveOrUpdate(alarmMontiorLog);
                 }
-                if ((result.getBr() != 0 && result.getBr() <= alarmSetting.getBrLeft()) || (result.getBr() != 0 && result.getBr() >= alarmSetting.getBrRight())) {
+                if (((result.getBr() != 0 && result.getBr() <= alarmSetting.getBrLeft())&&result.getBr()!=null) || ((result.getBr() != 0 && result.getBr() >= alarmSetting.getBrRight())&&result.getBr()!=null)) {
                     alarmMontiorLog = new AlarmMontiorLog();
                     alarmMontiorLog.setDeviceCode(userId);
                     alarmMontiorLog.setMonitoringTime(LocalDateTime.now());
@@ -209,7 +236,7 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
             if (bp != null) {
                 deviceParticularsVO.setSbpException(0);
                 deviceParticularsVO.setDbpException(0);
-                if ((bp.getSbp() != 0 && bp.getSbp() <= alarmSetting.getSbpLeft()) || (bp.getSbp() != 0 && bp.getSbp() >= alarmSetting.getSbpRight())) {
+                if (((bp.getSbp() != 0 && bp.getSbp() <= alarmSetting.getSbpLeft())&&bp.getSbp()!=null) || ((bp.getSbp() != 0 && bp.getSbp() >= alarmSetting.getSbpRight())&&bp.getSbp()!=null)) {
                     deviceParticularsVO.setSbpException(1);
                     alarmMontiorLog = new AlarmMontiorLog();
                     alarmMontiorLog.setDeviceCode(userId);
@@ -219,7 +246,7 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
                     alarmMontiorLog.setReferenceInterval(alarmSetting.getSbpLeft() + "-" + alarmSetting.getSbpRight());
                     alarmMontiorLogService.saveOrUpdate(alarmMontiorLog);
                 }
-                if ((bp.getDbp() != 0 && bp.getDbp() <= alarmSetting.getDbpLeft()) || (bp.getDbp() != 0 && bp.getDbp() >= alarmSetting.getDbpRight())) {
+                if (((bp.getDbp() != 0 && bp.getDbp() <= alarmSetting.getDbpLeft())&&bp.getDbp()!=null) || ((bp.getDbp() != 0 && bp.getDbp() >= alarmSetting.getDbpRight()))&&bp.getDbp()!=null) {
                     deviceParticularsVO.setSbpException(1);
                     alarmMontiorLog = new AlarmMontiorLog();
                     alarmMontiorLog.setDeviceCode(userId);
