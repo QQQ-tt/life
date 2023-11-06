@@ -212,26 +212,30 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
             Other other = resultsBp.getOther();
             Exception exception = resultsBp.getException();
             if (result != null) {
-                if (((result.getHr() != 0 && result.getHr() <= alarmSetting.getHrLeft())&&result.getHr()!=null) || ((result.getHr() != 0 && result.getHr() >= alarmSetting.getHrRight())&&result.getHr()!=null)) {
-                    alarmMontiorLog = new AlarmMontiorLog();
-                    alarmMontiorLog.setDeviceCode(userId);
-                    alarmMontiorLog.setMonitoringTime(LocalDateTime.now());
-                    alarmMontiorLog.setExceptionItem("心率(hr)异常");
-                    alarmMontiorLog.setExceptionValue(result.getHr());
-                    alarmMontiorLog.setReferenceInterval(alarmSetting.getHrLeft() + "-" + alarmSetting.getHrRight());
-                    alarmMontiorLogService.saveOrUpdate(alarmMontiorLog);
+                if (result.getHr()!=null){
+                    if ((result.getHr() != 0 && result.getHr() <= alarmSetting.getHrLeft()) || (result.getHr() != 0 && result.getHr() >= alarmSetting.getHrRight())) {
+                        alarmMontiorLog = new AlarmMontiorLog();
+                        alarmMontiorLog.setDeviceCode(userId);
+                        alarmMontiorLog.setMonitoringTime(LocalDateTime.now());
+                        alarmMontiorLog.setExceptionItem("心率(hr)异常");
+                        alarmMontiorLog.setExceptionValue(result.getHr());
+                        alarmMontiorLog.setReferenceInterval(alarmSetting.getHrLeft() + "-" + alarmSetting.getHrRight());
+                        alarmMontiorLogService.saveOrUpdate(alarmMontiorLog);
+                    }
+                    deviceParticularsVO.setHr(result.getHr());
                 }
-                if (((result.getBr() != 0 && result.getBr() <= alarmSetting.getBrLeft())&&result.getBr()!=null) || ((result.getBr() != 0 && result.getBr() >= alarmSetting.getBrRight())&&result.getBr()!=null)) {
-                    alarmMontiorLog = new AlarmMontiorLog();
-                    alarmMontiorLog.setDeviceCode(userId);
-                    alarmMontiorLog.setMonitoringTime(LocalDateTime.now());
-                    alarmMontiorLog.setExceptionItem("呼吸(Br)异常");
-                    alarmMontiorLog.setExceptionValue(result.getBr());
-                    alarmMontiorLog.setReferenceInterval(alarmSetting.getBrLeft() + "-" + alarmSetting.getBrRight());
-                    alarmMontiorLogService.saveOrUpdate(alarmMontiorLog);
-                }
-                deviceParticularsVO.setHr(result.getHr());
-                deviceParticularsVO.setBr(result.getBr());
+               if (result.getBr()!=null){
+                   if ((result.getBr() != 0 && result.getBr() <= alarmSetting.getBrLeft()) || (result.getBr() != 0 && result.getBr() >= alarmSetting.getBrRight())) {
+                       alarmMontiorLog = new AlarmMontiorLog();
+                       alarmMontiorLog.setDeviceCode(userId);
+                       alarmMontiorLog.setMonitoringTime(LocalDateTime.now());
+                       alarmMontiorLog.setExceptionItem("呼吸(Br)异常");
+                       alarmMontiorLog.setExceptionValue(result.getBr());
+                       alarmMontiorLog.setReferenceInterval(alarmSetting.getBrLeft() + "-" + alarmSetting.getBrRight());
+                       alarmMontiorLogService.saveOrUpdate(alarmMontiorLog);
+                   }
+                   deviceParticularsVO.setBr(result.getBr());
+               }
             }
             if (bp != null) {
                 deviceParticularsVO.setSbpException(0);
