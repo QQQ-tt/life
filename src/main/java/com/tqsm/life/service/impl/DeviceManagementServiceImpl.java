@@ -240,28 +240,32 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
             if (bp != null) {
                 deviceParticularsVO.setSbpException(0);
                 deviceParticularsVO.setDbpException(0);
-                if (((bp.getSbp() != 0 && bp.getSbp() <= alarmSetting.getSbpLeft())&&bp.getSbp()!=null) || ((bp.getSbp() != 0 && bp.getSbp() >= alarmSetting.getSbpRight())&&bp.getSbp()!=null)) {
-                    deviceParticularsVO.setSbpException(1);
-                    alarmMontiorLog = new AlarmMontiorLog();
-                    alarmMontiorLog.setDeviceCode(userId);
-                    alarmMontiorLog.setMonitoringTime(LocalDateTime.now());
-                    alarmMontiorLog.setExceptionItem("收缩压(sbp)异常");
-                    alarmMontiorLog.setExceptionValue(bp.getSbp());
-                    alarmMontiorLog.setReferenceInterval(alarmSetting.getSbpLeft() + "-" + alarmSetting.getSbpRight());
-                    alarmMontiorLogService.saveOrUpdate(alarmMontiorLog);
+                if (bp.getSbp()!=null){
+                    if ((bp.getSbp() != 0 && bp.getSbp() <= alarmSetting.getSbpLeft()) || (bp.getSbp() != 0 && bp.getSbp() >= alarmSetting.getSbpRight())) {
+                        deviceParticularsVO.setSbpException(1);
+                        alarmMontiorLog = new AlarmMontiorLog();
+                        alarmMontiorLog.setDeviceCode(userId);
+                        alarmMontiorLog.setMonitoringTime(LocalDateTime.now());
+                        alarmMontiorLog.setExceptionItem("收缩压(sbp)异常");
+                        alarmMontiorLog.setExceptionValue(bp.getSbp());
+                        alarmMontiorLog.setReferenceInterval(alarmSetting.getSbpLeft() + "-" + alarmSetting.getSbpRight());
+                        alarmMontiorLogService.saveOrUpdate(alarmMontiorLog);
+                    }
+                    deviceParticularsVO.setSbp(bp.getSbp());
                 }
-                if (((bp.getDbp() != 0 && bp.getDbp() <= alarmSetting.getDbpLeft())&&bp.getDbp()!=null) || ((bp.getDbp() != 0 && bp.getDbp() >= alarmSetting.getDbpRight()))&&bp.getDbp()!=null) {
-                    deviceParticularsVO.setSbpException(1);
-                    alarmMontiorLog = new AlarmMontiorLog();
-                    alarmMontiorLog.setDeviceCode(userId);
-                    alarmMontiorLog.setMonitoringTime(LocalDateTime.now());
-                    alarmMontiorLog.setExceptionItem("舒张压(dbp)异常");
-                    alarmMontiorLog.setExceptionValue(bp.getDbp());
-                    alarmMontiorLog.setReferenceInterval(alarmSetting.getDbpLeft() + "-" + alarmSetting.getDbpRight());
-                    alarmMontiorLogService.saveOrUpdate(alarmMontiorLog);
+                if (bp.getDbp()!=null){
+                    if ((bp.getDbp() != 0 && bp.getDbp() <= alarmSetting.getDbpLeft())||(bp.getDbp() != 0 && bp.getDbp() >= alarmSetting.getDbpRight())) {
+                        deviceParticularsVO.setSbpException(1);
+                        alarmMontiorLog = new AlarmMontiorLog();
+                        alarmMontiorLog.setDeviceCode(userId);
+                        alarmMontiorLog.setMonitoringTime(LocalDateTime.now());
+                        alarmMontiorLog.setExceptionItem("舒张压(dbp)异常");
+                        alarmMontiorLog.setExceptionValue(bp.getDbp());
+                        alarmMontiorLog.setReferenceInterval(alarmSetting.getDbpLeft() + "-" + alarmSetting.getDbpRight());
+                        alarmMontiorLogService.saveOrUpdate(alarmMontiorLog);
+                    }
+                    deviceParticularsVO.setDbp(bp.getDbp());
                 }
-                deviceParticularsVO.setSbp(bp.getSbp());
-                deviceParticularsVO.setDbp(bp.getDbp());
                 deviceParticularsVO.setTs(bp.getTs());
                 deviceParticularsVO.setSbpFigure(bp.getSbpFigure());
                 deviceParticularsVO.setDbpFigure(bp.getDbpFigure());
