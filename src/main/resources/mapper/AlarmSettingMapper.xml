@@ -2,4 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tqsm.life.mapper.AlarmSettingMapper">
 
+    <select id="selectAlarm" resultType="com.tqsm.life.entity.AlarmSetting">
+        SELECT *
+        FROM alarm_setting
+        WHERE 1 = 1
+          AND delete_flag = '0'
+    </select>
 </mapper>
