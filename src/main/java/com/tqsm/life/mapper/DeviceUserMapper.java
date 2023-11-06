@@ -22,4 +22,5 @@ import org.apache.ibatis.annotations.Param;
 public interface DeviceUserMapper extends BaseMapper<DeviceUser> {
 
     IPage<DeviceUserPageVO> listDeviceUserPage(Page<UserManagementVO> page,@Param("pageDTO")DeviceUserPageDTO dto);
+
 }

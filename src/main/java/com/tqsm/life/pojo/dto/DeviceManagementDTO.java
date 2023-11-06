@@ -25,6 +25,12 @@ public class DeviceManagementDTO extends PageDTO<DeviceManagement> {
     private String deviceCode;
 
     /**
+     * 设备id
+     */
+    @Schema(description = "设备id")
+    private Integer deviceId;
+
+    /**
      * 是否有人在床
      */
     @Schema(description = "是否有人在床")

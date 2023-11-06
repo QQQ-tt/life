@@ -34,8 +34,7 @@ public class AlarmSettingServiceImpl extends ServiceImpl<AlarmSettingMapper, Ala
     }
 
     @Override
-    public AlarmSetting queryAlarmSetting() {
-        LambdaQueryWrapper<AlarmSetting> wrapper = new LambdaQueryWrapper<>();
-        return alarmSettingMapper.selectOne(wrapper);
+    public AlarmSetting queryAlarmSetting(int deviceId) {
+        return alarmSettingMapper.getOne(deviceId);
     }
 }

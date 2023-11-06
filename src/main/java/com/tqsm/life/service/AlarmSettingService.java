@@ -15,5 +15,5 @@ public interface AlarmSettingService extends IService<AlarmSetting> {
 
     boolean saveOrUpdateNew(AlarmSetting dto);
 
-    AlarmSetting queryAlarmSetting();
+    AlarmSetting queryAlarmSetting(int deviceId);
 }

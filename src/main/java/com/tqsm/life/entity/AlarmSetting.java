@@ -20,6 +20,12 @@ import lombok.Setter;
 public class AlarmSetting extends BaseEntity {
 
     /**
+     * 设备id
+     */
+    @TableField(exist = false)
+    private Integer deviceId;
+
+    /**
      * 心率左区间
      */
     @TableField("hr_left")

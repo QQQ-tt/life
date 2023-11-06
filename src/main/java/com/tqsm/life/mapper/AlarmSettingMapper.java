@@ -15,5 +15,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface AlarmSettingMapper extends BaseMapper<AlarmSetting> {
 
-    AlarmSetting selectAlarm();
+    AlarmSetting selectAlarm(String userId);
+
+    AlarmSetting getOne(int deviceId);
 }
