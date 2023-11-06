@@ -37,8 +37,14 @@ public class DeviceParticularsVO {
     @Schema(description = "收缩压")
     private Integer sbp;
 
+    @Schema(description = "收缩压异常")
+    private Integer sbpException;
+
     @Schema(description = "舒张压")
     private Integer dbp;
+
+    @Schema(description = "舒张压异常")
+    private Integer dbpException;
 
     @Schema(description = "监测时间")
     private String ts;
