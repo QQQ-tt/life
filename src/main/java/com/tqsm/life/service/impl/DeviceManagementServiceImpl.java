@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tqsm.life.config.BaseEntity;
+import com.tqsm.life.config.Constants;
 import com.tqsm.life.config.exception.DataEnums;
 import com.tqsm.life.config.exception.DataException;
 import com.tqsm.life.entity.*;
@@ -26,15 +27,19 @@ import com.tqsm.life.pojo.life.result.bp.pub.figure.ResultBpPubFigure;
 import com.tqsm.life.pojo.life.result.fatigue.pub.PubSummary;
 import com.tqsm.life.pojo.life.result.fatigue.pub.ResultsFatiguePub;
 import com.tqsm.life.pojo.life.result.fatigue.pub.rhythm.ResultsFatiguePubRhythm;
+import com.tqsm.life.pojo.vo.DeviceExceptionAlertVO;
 import com.tqsm.life.pojo.vo.DeviceManagementVO;
 import com.tqsm.life.pojo.vo.DeviceParticularsVO;
+import com.tqsm.life.pojo.vo.UserExceptionAlertVO;
 import com.tqsm.life.service.*;
 import jakarta.annotation.Resource;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -143,11 +148,11 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
                 .set(DeviceUser::getIsHis, Boolean.TRUE));
         deviceUserService.save(DeviceUser.builder().deviceId(deviceId).userId(userId).build());
 
-        IPage<DeviceManagementVO> deviceManagementVOIPage = baseMapper.selectPageNew(new Page<>(-1,-1),
+        IPage<DeviceManagementVO> deviceManagementVOIPage = baseMapper.selectPageNew(new Page<>(-1, -1),
                 deviceManagementDTO);
         List<DeviceManagementVO> records = deviceManagementVOIPage.getRecords();
-        if (!records.isEmpty()){
-             deviceManagementVO = records.get(0);
+        if (!records.isEmpty()) {
+            deviceManagementVO = records.get(0);
         }
         return deviceManagementVO;
     }
@@ -161,10 +166,10 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
         deviceUserService.update(Wrappers.lambdaUpdate(DeviceUser.class)
                 .eq(DeviceUser::getDeviceId, deviceId)
                 .set(DeviceUser::getIsHis, Boolean.TRUE));
-        IPage<DeviceManagementVO> deviceManagementVOIPage = baseMapper.selectPageNew(new Page<>(-1,-1),
+        IPage<DeviceManagementVO> deviceManagementVOIPage = baseMapper.selectPageNew(new Page<>(-1, -1),
                 deviceManagementDTO);
         List<DeviceManagementVO> records = deviceManagementVOIPage.getRecords();
-        if (!records.isEmpty()){
+        if (!records.isEmpty()) {
             deviceManagementVO = records.get(0);
         }
         return deviceManagementVO;
@@ -212,7 +217,7 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
             Other other = resultsBp.getOther();
             Exception exception = resultsBp.getException();
             if (result != null) {
-                if (result.getHr()!=null){
+                if (result.getHr() != null) {
                     if ((result.getHr() != 0 && result.getHr() <= alarmSetting.getHrLeft()) || (result.getHr() != 0 && result.getHr() >= alarmSetting.getHrRight())) {
                         alarmMontiorLog = new AlarmMontiorLog();
                         alarmMontiorLog.setDeviceCode(userId);
@@ -224,23 +229,23 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
                     }
                     deviceParticularsVO.setHr(result.getHr());
                 }
-               if (result.getBr()!=null){
-                   if ((result.getBr() != 0 && result.getBr() <= alarmSetting.getBrLeft()) || (result.getBr() != 0 && result.getBr() >= alarmSetting.getBrRight())) {
-                       alarmMontiorLog = new AlarmMontiorLog();
-                       alarmMontiorLog.setDeviceCode(userId);
-                       alarmMontiorLog.setMonitoringTime(LocalDateTime.now());
-                       alarmMontiorLog.setExceptionItem("呼吸(Br)异常");
-                       alarmMontiorLog.setExceptionValue(result.getBr());
-                       alarmMontiorLog.setReferenceInterval(alarmSetting.getBrLeft() + "-" + alarmSetting.getBrRight());
-                       alarmMontiorLogService.saveOrUpdate(alarmMontiorLog);
-                   }
-                   deviceParticularsVO.setBr(result.getBr());
-               }
+                if (result.getBr() != null) {
+                    if ((result.getBr() != 0 && result.getBr() <= alarmSetting.getBrLeft()) || (result.getBr() != 0 && result.getBr() >= alarmSetting.getBrRight())) {
+                        alarmMontiorLog = new AlarmMontiorLog();
+                        alarmMontiorLog.setDeviceCode(userId);
+                        alarmMontiorLog.setMonitoringTime(LocalDateTime.now());
+                        alarmMontiorLog.setExceptionItem("呼吸(Br)异常");
+                        alarmMontiorLog.setExceptionValue(result.getBr());
+                        alarmMontiorLog.setReferenceInterval(alarmSetting.getBrLeft() + "-" + alarmSetting.getBrRight());
+                        alarmMontiorLogService.saveOrUpdate(alarmMontiorLog);
+                    }
+                    deviceParticularsVO.setBr(result.getBr());
+                }
             }
             if (bp != null) {
                 deviceParticularsVO.setSbpException(0);
                 deviceParticularsVO.setDbpException(0);
-                if (bp.getSbp()!=null){
+                if (bp.getSbp() != null) {
                     if ((bp.getSbp() != 0 && bp.getSbp() <= alarmSetting.getSbpLeft()) || (bp.getSbp() != 0 && bp.getSbp() >= alarmSetting.getSbpRight())) {
                         deviceParticularsVO.setSbpException(1);
                         alarmMontiorLog = new AlarmMontiorLog();
@@ -253,8 +258,8 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
                     }
                     deviceParticularsVO.setSbp(bp.getSbp());
                 }
-                if (bp.getDbp()!=null){
-                    if ((bp.getDbp() != 0 && bp.getDbp() <= alarmSetting.getDbpLeft())||(bp.getDbp() != 0 && bp.getDbp() >= alarmSetting.getDbpRight())) {
+                if (bp.getDbp() != null) {
+                    if ((bp.getDbp() != 0 && bp.getDbp() <= alarmSetting.getDbpLeft()) || (bp.getDbp() != 0 && bp.getDbp() >= alarmSetting.getDbpRight())) {
                         deviceParticularsVO.setSbpException(1);
                         alarmMontiorLog = new AlarmMontiorLog();
                         alarmMontiorLog.setDeviceCode(userId);
@@ -318,5 +323,93 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
             deviceParticularsVO.setScore(score);
         }
         return deviceParticularsVO;
+    }
+
+    @Override
+    public DeviceExceptionAlertVO exceptionAlert(String deviceCode) {
+        DeviceExceptionAlertVO deviceExceptionAlertVO = new DeviceExceptionAlertVO();
+        List<UserExceptionAlertVO> userExceptionAlertVOList = new ArrayList<>();
+        UserExceptionAlertVO userExceptionAlertVO = null;
+        //警报设置参数
+        AlarmSetting alarmSetting = alarmSettingMapper.selectAlarm(deviceCode);
+        if (alarmSetting == null) {
+            throw new DataException(DataEnums.SETTING_ALERT);
+        }
+        int times = 0;
+        //如果开启了定时,拿到时间
+        Integer switches = alarmSetting.getSwitches();
+        //开启定时弹窗
+        if (switches == 0) {
+            times = alarmSetting.getTims();
+        }
+        //默认弹窗关闭状态
+        deviceExceptionAlertVO.setUpDown(Constants.DISABLE);
+        deviceExceptionAlertVO.setTimes(times);
+        ResultsBp resultsBp = lifeClient.bloodPressure(deviceCode);
+        //根据设备编号查找绑定的用户体
+        DeviceManagementVO deviceManagementVO = new DeviceManagementVO();
+        DeviceManagementDTO deviceManagementDTO = new DeviceManagementDTO();
+        deviceManagementDTO.setDeviceCode(deviceCode);
+        IPage<DeviceManagementVO> deviceManagementVOIPage = baseMapper.selectPageNew(new Page<>(-1, -1),
+                deviceManagementDTO);
+        List<DeviceManagementVO> records = deviceManagementVOIPage.getRecords();
+        if (!records.isEmpty()) {
+            deviceManagementVO = records.get(0);
+        }
+        //copy用户信息体
+        BeanUtils.copyProperties(deviceManagementVO, deviceExceptionAlertVO);
+        if (resultsBp != null) {
+            //血压计算结果
+            Bp bp = resultsBp.getBp();
+            Result result = resultsBp.getResult();
+            if (result != null) {
+                if (alarmSetting.getHrAlert().equals(Constants.ENABLE)) {
+                    if (result.getHr() != null) {
+                        if ((result.getHr() != 0 && result.getHr() <= alarmSetting.getHrLeft()) || (result.getHr() != 0 && result.getHr() >= alarmSetting.getHrRight())) {
+                            userExceptionAlertVO = new UserExceptionAlertVO();
+                            userExceptionAlertVO.setValue(result.getHr());
+                            userExceptionAlertVO.setName("心率(次/分钟)");
+                            userExceptionAlertVOList.add(userExceptionAlertVO);
+                            deviceExceptionAlertVO.setUpDown(Constants.ENABLE);
+                        }
+
+                    }
+                }
+                if (alarmSetting.getBrAlert().equals(Constants.ENABLE)) {
+                    if (result.getBr() != null) {
+                        if ((result.getBr() != 0 && result.getBr() <= alarmSetting.getBrLeft()) || (result.getBr() != 0 && result.getBr() >= alarmSetting.getBrRight())) {
+                            userExceptionAlertVO = new UserExceptionAlertVO();
+                            userExceptionAlertVO.setValue(result.getBr());
+                            userExceptionAlertVO.setName("呼吸(次/分钟)");
+                            userExceptionAlertVOList.add(userExceptionAlertVO);
+                            deviceExceptionAlertVO.setUpDown(Constants.ENABLE);
+                        }
+                    }
+                }
+            }
+            if (bp != null) {
+                if (alarmSetting.getBpAlert().equals(Constants.ENABLE)) {
+                    if (bp.getSbp() != null) {
+                        if ((bp.getSbp() != 0 && bp.getSbp() <= alarmSetting.getSbpLeft()) || (bp.getSbp() != 0 && bp.getSbp() >= alarmSetting.getSbpRight())) {
+                            userExceptionAlertVO = new UserExceptionAlertVO();
+                            userExceptionAlertVO.setValue(bp.getSbp());
+                            userExceptionAlertVO.setName("收缩压(mmHg)");
+                            deviceExceptionAlertVO.setUpDown(Constants.ENABLE);
+                        }
+
+                    }
+                    if (bp.getDbp() != null) {
+                        if ((bp.getDbp() != 0 && bp.getDbp() <= alarmSetting.getDbpLeft()) || (bp.getDbp() != 0 && bp.getDbp() >= alarmSetting.getDbpRight())) {
+                            userExceptionAlertVO = new UserExceptionAlertVO();
+                            userExceptionAlertVO.setValue(bp.getDbp());
+                            userExceptionAlertVO.setName("舒张压(mmHg)");
+                            deviceExceptionAlertVO.setUpDown(Constants.ENABLE);
+                        }
+                    }
+                }
+            }
+            deviceExceptionAlertVO.setUserExceptionAlertVO(userExceptionAlertVOList);
+        }
+        return deviceExceptionAlertVO;
     }
 }

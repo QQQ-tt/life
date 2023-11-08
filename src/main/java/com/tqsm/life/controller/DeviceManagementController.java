@@ -5,6 +5,7 @@ import com.tqsm.life.config.Result;
 import com.tqsm.life.entity.DeviceManagement;
 import com.tqsm.life.entity.DeviceUser;
 import com.tqsm.life.pojo.dto.DeviceManagementDTO;
+import com.tqsm.life.pojo.vo.DeviceExceptionAlertVO;
 import com.tqsm.life.pojo.vo.DeviceManagementVO;
 import com.tqsm.life.pojo.vo.DeviceParticularsVO;
 import com.tqsm.life.service.DeviceManagementService;
@@ -72,6 +73,12 @@ public class DeviceManagementController {
     @GetMapping("/particulars")
     public Result<DeviceParticularsVO> particulars(@RequestParam String deviceCode) {
         return Result.success(service.particulars(deviceCode));
+    }
+
+    @Operation(summary = "异常提醒")
+    @GetMapping("/exceptionAlert")
+    public Result<DeviceExceptionAlertVO> exceptionAlert(@RequestParam String deviceCode) {
+        return Result.success(service.exceptionAlert(deviceCode));
     }
 
 }
