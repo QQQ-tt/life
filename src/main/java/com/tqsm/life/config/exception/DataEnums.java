@@ -57,6 +57,9 @@ public enum DataEnums {
     /** 编辑失败 */
     UPDATE_FAILED("编辑失败", 500),
 
+    /** 请前往设置警报参数 */
+    SETTING_ALERT("请前往设置警报参数", 500),
+
     /** 入参数据异常 */
     DATA_IS_ABNORMAL("入参数据异常", 205);
 
