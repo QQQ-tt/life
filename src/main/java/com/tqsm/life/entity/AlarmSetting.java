@@ -22,7 +22,7 @@ public class AlarmSetting extends BaseEntity {
     /**
      * 设备id
      */
-    @TableField(exist = false)
+    @TableField("device_id")
     private Integer deviceId;
 
     /**
@@ -50,28 +50,46 @@ public class AlarmSetting extends BaseEntity {
     private Integer brRight;
 
     /**
-     * 收缩压左区间值
+     * 收缩压左区间 值
      */
     @TableField("sbp_left")
     private Integer sbpLeft;
 
     /**
-     * 收缩压右区间值
+     * 收缩压右区间 值
      */
     @TableField("sbp_right")
     private Integer sbpRight;
 
     /**
-     * 舒张压左区间值
+     * 舒张压左区间 值
      */
     @TableField("dbp_left")
     private Integer dbpLeft;
 
     /**
-     * 舒张压右区间值
+     * 舒张压右区间 值
      */
     @TableField("dbp_right")
     private Integer dbpRight;
+
+    /**
+     * 血压预警开关（0:开启，1:关闭）
+     */
+    @TableField("bp_alert")
+    private Integer bpAlert;
+
+    /**
+     * 心电图预警开关（0:开启,1:关闭）
+     */
+    @TableField("hr_alert")
+    private Integer hrAlert;
+
+    /**
+     * 呼吸预警开关(0:开启，1:关闭)
+     */
+    @TableField("br_alert")
+    private Integer brAlert;
 
     /**
      * 弹窗提示时长（s）

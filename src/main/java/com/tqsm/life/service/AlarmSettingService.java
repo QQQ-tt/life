@@ -2,6 +2,7 @@ package com.tqsm.life.service;
 
 import com.tqsm.life.entity.AlarmSetting;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.tqsm.life.pojo.dto.DeviceAlertDTO;
 
 /**
  * <p>
@@ -16,4 +17,6 @@ public interface AlarmSettingService extends IService<AlarmSetting> {
     boolean saveOrUpdateNew(AlarmSetting dto);
 
     AlarmSetting queryAlarmSetting(int deviceId);
+
+    boolean alertUpdate(DeviceAlertDTO dto);
 }
