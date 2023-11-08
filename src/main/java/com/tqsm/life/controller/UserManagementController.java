@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.tqsm.life.config.Result;
 import com.tqsm.life.entity.UserManagement;
 import com.tqsm.life.pojo.dto.UserManagementDTO;
+import com.tqsm.life.pojo.vo.UserManagementHisVO;
 import com.tqsm.life.pojo.vo.UserManagementVO;
 import com.tqsm.life.service.UserManagementService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -39,12 +40,20 @@ public class UserManagementController {
         return Result.success(userManagementService.listUserManagementPage(dto));
     }
 
+    @PostMapping("/userForHisList")
+    @Operation(summary = "His获取")
+    public Result<IPage<UserManagementHisVO>> userForHisList(@RequestBody UserManagementDTO dto) {
+        return Result.success(userManagementService.userForHisList(dto));
+    }
+
 
     @DeleteMapping("/removeById")
     @Operation(summary = "删除")
     public Result<Boolean> removeById(@RequestParam Integer id) {
         return Result.success(userManagementService.removeById(id));
     }
+
+
 
 
 }

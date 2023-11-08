@@ -1,18 +1,14 @@
 package com.tqsm.life.pojo.vo;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
  * @author xnd
- * @since 2023/8/31 10:26
+ * @since 2023/11/6 9:48
  */
 @Data
-public class UserManagementVO {
-
-    @Schema(description = "id")
-    private Integer id;
+public class UserManagementHisVO {
 
     @Schema(description = "姓名")
     private String name;
@@ -29,9 +25,12 @@ public class UserManagementVO {
     @Schema(description = "手机号")
     private String tel;
 
+    @Schema(description = "科室名称")
+    private String deptCode;
+
+    @Schema(description = "诊断名称")
+    private String diagName;
+
     @Schema(description = "住院证号")
     private String inpatientNo;
-
-    @Schema(description = "来源 1:新建 2:his")
-    private Integer type;
 }

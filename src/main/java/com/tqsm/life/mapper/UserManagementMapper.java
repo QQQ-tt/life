@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tqsm.life.entity.UserManagement;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.tqsm.life.pojo.dto.UserManagementDTO;
+import com.tqsm.life.pojo.vo.UserManagementHisVO;
 import com.tqsm.life.pojo.vo.UserManagementVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -27,4 +28,11 @@ public interface UserManagementMapper extends BaseMapper<UserManagement> {
      * @return
      */
     IPage<UserManagementVO> listUserManagementPage(Page<UserManagementVO> page,@Param("pageDTO") UserManagementDTO dto);
+
+    /**
+     * HIS获取住院人员视图
+     * @param dto
+     * @return
+     */
+    IPage<UserManagementHisVO> userForHisList(UserManagementDTO dto);
 }

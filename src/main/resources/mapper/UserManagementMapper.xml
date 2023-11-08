@@ -11,6 +11,7 @@
         sex,
         tel,
         inpatient_no,
+        type,
         delete_flag
         FROM
         `user_management`
@@ -26,5 +27,8 @@
         <if test="pageDTO.sex != null">
             AND sex = #{pageDTO.sex}
         </if>
+    </select>
+    <select id="userForHisList" resultType="com.tqsm.life.pojo.vo.UserManagementHisVO">
+         select *from His.II_INMAININFO
     </select>
 </mapper>
