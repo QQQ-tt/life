@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.tqsm.life.entity.AlarmSetting;
 import com.tqsm.life.mapper.AlarmSettingMapper;
 import com.tqsm.life.pojo.dto.DeviceAlertDTO;
+import com.tqsm.life.pojo.vo.DeviceAlertQueryVO;
 import com.tqsm.life.service.AlarmSettingService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import jakarta.annotation.Resource;
@@ -62,5 +63,10 @@ public class AlarmSettingServiceImpl extends ServiceImpl<AlarmSettingMapper, Ala
             update = update(lambdaUpdateWrapper);
         }
         return update;
+    }
+
+    @Override
+    public DeviceAlertQueryVO alertQuery(int deviceId) {
+        return alarmSettingMapper.alertQuery(deviceId);
     }
 }

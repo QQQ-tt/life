@@ -19,4 +19,11 @@
             AND device_id = #{deviceId}
         </if>
     </select>
+    <select id="alertQuery" resultType="com.tqsm.life.pojo.vo.DeviceAlertQueryVO">
+        SELECT device_id,bp_alert,hr_alert,br_alert from alarm_setting
+        WHERE 1 = 1
+        <if test="deviceId!= null">
+            AND device_id = #{deviceId}
+        </if>
+    </select>
 </mapper>

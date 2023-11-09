@@ -2,6 +2,7 @@ package com.tqsm.life.mapper;
 
 import com.tqsm.life.entity.AlarmSetting;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.tqsm.life.pojo.vo.DeviceAlertQueryVO;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -18,4 +19,6 @@ public interface AlarmSettingMapper extends BaseMapper<AlarmSetting> {
     AlarmSetting selectAlarm(String userId);
 
     AlarmSetting getOne(int deviceId);
+
+    DeviceAlertQueryVO alertQuery(int deviceId);
 }

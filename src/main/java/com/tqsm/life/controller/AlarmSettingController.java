@@ -4,6 +4,7 @@ import com.tqsm.life.config.Result;
 import com.tqsm.life.entity.AlarmSetting;
 import com.tqsm.life.entity.UserManagement;
 import com.tqsm.life.pojo.dto.DeviceAlertDTO;
+import com.tqsm.life.pojo.vo.DeviceAlertQueryVO;
 import com.tqsm.life.service.AlarmSettingService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -33,9 +34,15 @@ public class AlarmSettingController {
     }
 
     @PostMapping("/alertUpdate")
-    @Operation(summary = "警报预警开启")
+    @Operation(summary = "警报预警开启/关闭")
     public Result<Boolean> alertUpdate(@RequestBody DeviceAlertDTO dto) {
         return Result.success(alarmSettingService.alertUpdate(dto));
+    }
+
+    @PostMapping("/alertQuery")
+    @Operation(summary = "警报预警按钮状态查询")
+    public Result<DeviceAlertQueryVO> alertQuery(@RequestParam int deviceId) {
+        return Result.success(alarmSettingService.alertQuery(deviceId));
     }
 
     @GetMapping("/queryAlarmSettingById")
