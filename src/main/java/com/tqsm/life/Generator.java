@@ -50,10 +50,11 @@ public class Generator {
                         .entity("entity")
                         .service("service")
                         .serviceImpl("service.impl")
-                        .mapper("mapper")
+                        .mapper("mapper.life")
                         .xml("mapper")
                         .controller("controller")
-                        .pathInfo(Collections.singletonMap(OutputFile.xml, projectPath + "/src/main/resources/mapper")))
+                        .pathInfo(Collections.singletonMap(OutputFile.xml, projectPath +
+                                "/src/main/resources/mapper/life")))
                 // 策略配置
                 .strategyConfig((scanner, builder) -> builder.addInclude(getTables(scanner.apply(
                                 "请输入表名，多个英文逗号分隔？所有输入 all")))

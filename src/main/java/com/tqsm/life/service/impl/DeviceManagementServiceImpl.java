@@ -11,9 +11,9 @@ import com.tqsm.life.config.exception.DataEnums;
 import com.tqsm.life.config.exception.DataException;
 import com.tqsm.life.entity.*;
 import com.tqsm.life.interfaces.LifeClient;
-import com.tqsm.life.mapper.AlarmSettingMapper;
-import com.tqsm.life.mapper.DeviceManagementMapper;
-import com.tqsm.life.mapper.DeviceUserMapper;
+import com.tqsm.life.mapper.life.AlarmSettingMapper;
+import com.tqsm.life.mapper.life.DeviceManagementMapper;
+import com.tqsm.life.mapper.life.DeviceUserMapper;
 import com.tqsm.life.pojo.dto.DeviceManagementDTO;
 import com.tqsm.life.pojo.life.PersonState;
 import com.tqsm.life.pojo.life.result.bp.Bp;
@@ -367,6 +367,7 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
                     if (result.getHr() != null) {
                         if ((result.getHr() != 0 && result.getHr() <= alarmSetting.getHrLeft()) || (result.getHr() != 0 && result.getHr() >= alarmSetting.getHrRight())) {
                             userExceptionAlertVO = new UserExceptionAlertVO();
+                            userExceptionAlertVO.setId(Constants.HR);
                             userExceptionAlertVO.setValue(result.getHr());
                             userExceptionAlertVO.setName("心率(次/分钟)");
                             userExceptionAlertVOList.add(userExceptionAlertVO);
@@ -379,6 +380,7 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
                     if (result.getBr() != null) {
                         if ((result.getBr() != 0 && result.getBr() <= alarmSetting.getBrLeft()) || (result.getBr() != 0 && result.getBr() >= alarmSetting.getBrRight())) {
                             userExceptionAlertVO = new UserExceptionAlertVO();
+                            userExceptionAlertVO.setId(Constants.BR);
                             userExceptionAlertVO.setValue(result.getBr());
                             userExceptionAlertVO.setName("呼吸(次/分钟)");
                             userExceptionAlertVOList.add(userExceptionAlertVO);
@@ -392,6 +394,7 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
                     if (bp.getSbp() != null) {
                         if ((bp.getSbp() != 0 && bp.getSbp() <= alarmSetting.getSbpLeft()) || (bp.getSbp() != 0 && bp.getSbp() >= alarmSetting.getSbpRight())) {
                             userExceptionAlertVO = new UserExceptionAlertVO();
+                            userExceptionAlertVO.setId(Constants.SBP);
                             userExceptionAlertVO.setValue(bp.getSbp());
                             userExceptionAlertVO.setName("收缩压(mmHg)");
                             deviceExceptionAlertVO.setUpDown(Constants.ENABLE);
@@ -401,6 +404,7 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
                     if (bp.getDbp() != null) {
                         if ((bp.getDbp() != 0 && bp.getDbp() <= alarmSetting.getDbpLeft()) || (bp.getDbp() != 0 && bp.getDbp() >= alarmSetting.getDbpRight())) {
                             userExceptionAlertVO = new UserExceptionAlertVO();
+                            userExceptionAlertVO.setId(Constants.DBP);
                             userExceptionAlertVO.setValue(bp.getDbp());
                             userExceptionAlertVO.setName("舒张压(mmHg)");
                             deviceExceptionAlertVO.setUpDown(Constants.ENABLE);

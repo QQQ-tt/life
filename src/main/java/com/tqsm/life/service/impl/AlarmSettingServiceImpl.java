@@ -1,9 +1,8 @@
 package com.tqsm.life.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.tqsm.life.entity.AlarmSetting;
-import com.tqsm.life.mapper.AlarmSettingMapper;
+import com.tqsm.life.mapper.life.AlarmSettingMapper;
 import com.tqsm.life.pojo.dto.DeviceAlertDTO;
 import com.tqsm.life.pojo.vo.DeviceAlertQueryVO;
 import com.tqsm.life.service.AlarmSettingService;

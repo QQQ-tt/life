@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.tqsm.life.entity.DeviceHeartbeat;
 import com.tqsm.life.entity.DeviceManagement;
 import com.tqsm.life.interfaces.LifeClient;
-import com.tqsm.life.mapper.DeviceHeartbeatMapper;
+import com.tqsm.life.mapper.life.DeviceHeartbeatMapper;
 import com.tqsm.life.pojo.life.PersonState;
 import com.tqsm.life.service.DeviceHeartbeatService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

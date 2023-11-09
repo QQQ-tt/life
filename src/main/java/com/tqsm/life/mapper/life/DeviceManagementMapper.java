@@ -1,4 +1,4 @@
-package com.tqsm.life.mapper;
+package com.tqsm.life.mapper.life;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.tqsm.life.entity.DeviceManagement;

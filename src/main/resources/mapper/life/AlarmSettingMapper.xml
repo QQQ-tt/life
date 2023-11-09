@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tqsm.life.mapper.AlarmSettingMapper">
+<mapper namespace="com.tqsm.life.mapper.life.AlarmSettingMapper">
 
     <select id="selectAlarm" resultType="com.tqsm.life.entity.AlarmSetting">
         SELECT a.*

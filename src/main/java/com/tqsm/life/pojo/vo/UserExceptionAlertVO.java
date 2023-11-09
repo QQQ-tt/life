@@ -10,6 +10,9 @@ import lombok.Data;
 @Data
 public class UserExceptionAlertVO {
 
+    @Schema(description = "id")
+    private Integer id;
+
     @Schema(description = "警报项")
     private String name;
 
