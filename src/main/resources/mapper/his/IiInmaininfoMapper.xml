@@ -4,24 +4,24 @@
 
     <select id="userForHisList" resultType="com.tqsm.life.pojo.vo.UserManagementHisVO">
         SELECT
-            NAME,
-            floor( months_between( SYSDATE, BIRTHDAY ) / 12 ) AS age,
-            CASE
-                SEX
-                WHEN '2' THEN
-                    '0'
-                WHEN '1' THEN
-                    '1'
-                END AS sex,
-            IDENNO AS idCard,
-            LINKMAN_TEL AS tel,
-            '' AS DIAG_NAME,
-            DEPT_NAME,
-            INPATIENT_NO
+        NAME,
+        floor( months_between( SYSDATE, BIRTHDAY ) / 12 ) AS age,
+        CASE
+        SEX
+        WHEN '2' THEN
+        '0'
+        WHEN '1' THEN
+        '1'
+        END AS sex,
+        IDENNO AS idCard,
+        LINKMAN_TEL AS tel,
+        '' AS DIAG_NAME,
+        DEPT_NAME,
+        INPATIENT_NO
         FROM
-            HIS.II_INMAININFO
+        HIS.II_INMAININFO
         WHERE
-            1 = 1
+        1 = 1
         <if test="dto.name != null and dto.name != ''">
             AND NAME = #{dto.name}
         </if>
@@ -31,7 +31,7 @@
         <if test="dto.inpatientNo != null and dto.inpatientNo != ''">
             AND INPATIENT_NO = #{dto.inpatientNo}
         </if>
-          AND IDENNO IS NOT NULL
-          AND IN_DATE >= to_date( '2023-11-01 00:00:00', 'yyyy-mm-dd hh24:mi:ss' )
+        AND IDENNO IS NOT NULL
+        AND IN_DATE >= to_date( '2023-11-09 00:00:00', 'yyyy-mm-dd hh24:mi:ss' )
     </select>
 </mapper>

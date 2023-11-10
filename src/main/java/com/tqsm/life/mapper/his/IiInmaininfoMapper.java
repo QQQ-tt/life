@@ -10,6 +10,8 @@ import com.tqsm.life.pojo.vo.UserManagementVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * <p>
  * II_住院主表 Mapper 接口
@@ -22,9 +24,9 @@ import org.apache.ibatis.annotations.Param;
 public interface IiInmaininfoMapper extends BaseMapper<IiInmaininfo> {
     /**
      * 根据住院证号 从HIS获取 住院人员
-     * @param page
+     * @param List
      * @param dto
      * @return
      */
-    IPage<UserManagementHisVO> userForHisList(Page<UserManagementVO> page, @Param("dto")UserManagementDTO dto);
+    List<UserManagementHisVO> userForHisList(@Param("dto")UserManagementDTO dto);
 }

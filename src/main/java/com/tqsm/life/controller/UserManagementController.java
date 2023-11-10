@@ -1,12 +1,14 @@
 package com.tqsm.life.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.github.pagehelper.PageInfo;
 import com.tqsm.life.config.Result;
 import com.tqsm.life.entity.UserManagement;
 import com.tqsm.life.pojo.dto.UserManagementDTO;
 import com.tqsm.life.pojo.vo.UserManagementHisVO;
 import com.tqsm.life.pojo.vo.UserManagementVO;
 import com.tqsm.life.service.UserManagementService;
+import com.tqsm.life.util.PageHelperTool;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,10 +46,15 @@ public class UserManagementController {
 
     @PostMapping("/userForHisList")
     @Operation(summary = "His获取")
-    public Result<IPage<UserManagementHisVO>> userForHisList(@RequestBody UserManagementDTO dto) {
-        return Result.success(userManagementService.userForHisList(dto));
+    public Result<PageInfo<UserManagementHisVO>> userForHisList(@RequestBody UserManagementDTO dto) {
+        int pageSize = (int) dto.getPageSize();
+        int pageNum = (int) dto.getPageNum();
+        List<UserManagementHisVO> userManagementHisVOS = userManagementService.userForHisList(dto);
+        PageInfo<UserManagementHisVO> resultList = PageHelperTool.excutePageInfo(userManagementHisVOS,
+                pageNum,
+                pageSize);
+        return Result.success(resultList);
     }
-
 
 
     @PostMapping("/saveBatchUser")
@@ -62,8 +69,6 @@ public class UserManagementController {
     public Result<Boolean> removeById(@RequestParam Integer id) {
         return Result.success(userManagementService.removeById(id));
     }
-
-
 
 
 }

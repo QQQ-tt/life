@@ -78,9 +78,8 @@ public class UserManagementServiceImpl extends ServiceImpl<UserManagementMapper,
     }
 
     @Override
-    public IPage<UserManagementHisVO> userForHisList(UserManagementDTO dto) {
-        Page<UserManagementVO> page = new Page<>(dto.getPageNum(), dto.getPageSize());
-        return iiInmaininfoMapper.userForHisList(page, dto);
+    public List<UserManagementHisVO> userForHisList(UserManagementDTO dto) {
+        return iiInmaininfoMapper.userForHisList(dto);
     }
 
     @Override

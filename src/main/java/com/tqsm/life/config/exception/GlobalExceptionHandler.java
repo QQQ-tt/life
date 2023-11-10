@@ -20,11 +20,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(NullPointerException.class)
-    public Result<String> nullException(NullPointerException e) {
-        log.error("空指针异常");
-        return Result.failed("空指针异常");
-    }
+//    @ExceptionHandler(NullPointerException.class)
+//    public Result<String> nullException(NullPointerException e) {
+//        log.error("空指针异常");
+//        return Result.failed("空指针异常");
+//    }
 
     @ExceptionHandler(DataException.class)
     public Result<String> dateException(DataException e) {

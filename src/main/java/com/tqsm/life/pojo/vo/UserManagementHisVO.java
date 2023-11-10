@@ -33,4 +33,5 @@ public class UserManagementHisVO {
 
     @Schema(description = "住院证号")
     private String inpatientNo;
+
 }
