@@ -1,9 +1,11 @@
 package com.tqsm.life.config.DataSourceConfig;
 
+import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -26,6 +28,10 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 public class HisDataSourceConfig {
 
+    @Autowired
+    @Qualifier("oracle")
+    private MybatisPlusInterceptor mybatisPlusInterceptor;
+
     @Bean(name = "hisDataSource")
     @ConfigurationProperties(prefix = "spring.datasource.his")
     public DataSource getDateSource() {
@@ -37,6 +43,7 @@ public class HisDataSourceConfig {
             @Qualifier("hisDataSource") DataSource datasource) throws Exception {
 
         MybatisSqlSessionFactoryBean bean = new MybatisSqlSessionFactoryBean();
+        bean.setPlugins(mybatisPlusInterceptor);
         bean.setDataSource(datasource);
         bean.setMapperLocations(// 设置mybatis的xml所在位置
                 new PathMatchingResourcePatternResolver().getResources("classpath*:mapper/his/*.xml"));

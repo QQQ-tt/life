@@ -33,6 +33,7 @@ import javax.sql.DataSource;
 public class LifeDataSourceConfig {
 
     @Autowired
+    @Qualifier("mysql")
     private MybatisPlusInterceptor mybatisPlusInterceptor;
 
     @Autowired
