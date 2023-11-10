@@ -26,7 +26,7 @@ public class UserManagementHisVO {
     private String tel;
 
     @Schema(description = "科室名称")
-    private String deptCode;
+    private String deptName;
 
     @Schema(description = "诊断名称")
     private String diagName;
