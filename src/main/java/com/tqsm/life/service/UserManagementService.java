@@ -23,7 +23,7 @@ public interface UserManagementService extends IService<UserManagement> {
 
     IPage<UserManagementVO> listUserManagementPage(UserManagementDTO dto);
 
-    List<UserManagementHisVO> userForHisList(UserManagementDTO dto);
+    IPage<UserManagementHisVO> userForHisList(UserManagementDTO dto);
 
     boolean saveBatchUser(List<UserManagement> dto);
 }

@@ -35,5 +35,12 @@ public class Constants {
     public static final Integer IS_DELETED = 1;
     public static final Integer UNDELETED = 0;
 
+    /**
+     * 测试连接
+     * 1 有人
+     * 0 无人
+     */
+    public static final Integer HAVE_PER = 1;
+    public static final Integer NO_HAVE_PER = 0;
 
 }

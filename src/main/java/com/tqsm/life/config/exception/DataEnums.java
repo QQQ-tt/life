@@ -43,6 +43,8 @@ public enum DataEnums {
     USER_REMOVE_FAIL("用户删除失败", 201),
     /** 服务编号不匹配 */
     PLATFORM_IS_FAIL("服务编号不匹配", 205),
+    /** 暂无绑定设备，请前往绑定 */
+    BAND_DING_FILED("暂无绑定设备，请前往绑定", 205),
     /** 身份证信息错误 */
     ID_CARD_IS_FAIL("身份证信息错误", 206),
     /**

@@ -24,9 +24,9 @@ import java.util.List;
 public interface IiInmaininfoMapper extends BaseMapper<IiInmaininfo> {
     /**
      * 根据住院证号 从HIS获取 住院人员
-     * @param List
+     * @param page
      * @param dto
      * @return
      */
-    List<UserManagementHisVO> userForHisList(@Param("dto")UserManagementDTO dto);
+    IPage<UserManagementHisVO> userForHisList(Page<UserManagementVO> page,@Param("dto")UserManagementDTO dto);
 }

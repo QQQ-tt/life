@@ -69,9 +69,6 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
     @Resource
     private AlarmMontiorLogService alarmMontiorLogService;
 
-    @Resource
-    private DeviceUserMapper deviceUserMapper;
-
     public DeviceManagementServiceImpl(DeviceUserService deviceUserService,
                                        DeviceMonitorLogService deviceMonitorLogService,
                                        DeviceHeartbeatService deviceHeartbeatService, LifeClient lifeClient) {
@@ -83,39 +80,8 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
 
     @Override
     public IPage<DeviceManagementVO> listDevice(DeviceManagementDTO dto) {
-        IPage<DeviceManagementVO> deviceManagementVOIPage = baseMapper.selectPageNew(dto.getPage(), dto);
-        // TODO: 2023/11/3 造的假数据，记得删除
-        List<DeviceManagementVO> records = deviceManagementVOIPage.getRecords();
-        DeviceManagementVO deviceManagement = new DeviceManagementVO();
-        deviceManagement.setDeviceCode("17003f000c504b4b48353420");
-        deviceManagement.setDeviceName("设备2");
-        deviceManagement.setId("2");
-        deviceManagement.setDeviceUserId(17);
-        deviceManagement.setName("崔卜文");
-        deviceManagement.setSex(0);
-        deviceManagement.setIdCard("320586199906301211");
-        deviceManagement.setTel("15248525256");
-        deviceManagement.setAge(24);
-        deviceManagement.setPerson(true);
-        deviceManagement.setOnline(true);
-        deviceManagement.setMonitoring(true);
-        records.add(deviceManagement);
-        DeviceManagementVO deviceManagement2 = new DeviceManagementVO();
-        deviceManagement2.setDeviceCode("290026676756756756756");
-        deviceManagement2.setDeviceName("设备3");
-        deviceManagement2.setId("3");
-        deviceManagement2.setDeviceUserId(18);
-        deviceManagement2.setName("范佳丽");
-        deviceManagement2.setSex(0);
-        deviceManagement2.setIdCard("320586199307301211");
-        deviceManagement2.setTel("15252512546");
-        deviceManagement2.setAge(24);
-        deviceManagement2.setPerson(true);
-        deviceManagement2.setOnline(true);
-        deviceManagement2.setMonitoring(true);
-        records.add(deviceManagement2);
-        deviceManagementVOIPage.setRecords(records);
-        return deviceManagementVOIPage;
+        // TODO: 2023/11/10  
+        return baseMapper.selectPageNew(dto.getPage(), dto);
     }
 
     @Override
@@ -181,7 +147,11 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
         PersonState person = lifeClient.isPerson(deviceCode);
         if (Objects.nonNull(person)) {
             String code = person.getCode();
-            flag = "0".equals(code);
+            //1跟0都测试连接成功
+            if (code != null) {
+                flag = true;
+            }
+
         }
         return flag;
     }
