@@ -1,8 +1,8 @@
-package com.tqsm.life.mapper.life;
+package com.tqsm.life.mapper.his;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.tqsm.life.entity.UserManagement;
+import com.tqsm.life.entity.IiInmaininfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.tqsm.life.pojo.dto.UserManagementDTO;
 import com.tqsm.life.pojo.vo.UserManagementHisVO;
@@ -12,21 +12,19 @@ import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
- *  Mapper 接口
+ * II_住院主表 Mapper 接口
  * </p>
  *
- * @author qtx
- * @since 2023-08-31
+ * @author xnd
+ * @since 2023-11-10
  */
 @Mapper
-public interface UserManagementMapper extends BaseMapper<UserManagement> {
-
+public interface IiInmaininfoMapper extends BaseMapper<IiInmaininfo> {
     /**
-     * 人员管理分页查询
+     * 根据住院证号 从HIS获取 住院人员
      * @param page
      * @param dto
      * @return
      */
-    IPage<UserManagementVO> listUserManagementPage(Page<UserManagementVO> page,@Param("pageDTO") UserManagementDTO dto);
-
+    IPage<UserManagementHisVO> userForHisList(Page<UserManagementVO> page, @Param("dto")UserManagementDTO dto);
 }
