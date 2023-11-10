@@ -57,6 +57,9 @@ public enum DataEnums {
     /** 编辑失败 */
     UPDATE_FAILED("编辑失败", 500),
 
+    /** 批量插入数据失败 */
+    INSERT_BATCH_FILED("批量插入数据失败", 500),
+
     /** 请前往设置警报参数 */
     SETTING_ALERT("请前往设置警报参数", 500),
 

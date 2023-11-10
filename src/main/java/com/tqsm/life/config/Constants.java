@@ -27,4 +27,13 @@ public class Constants {
     public static final Integer DBP = 4;
 
 
+    /**
+     * 删除状态
+     * 1 已删除
+     * 0 未删除
+     */
+    public static final Integer IS_DELETED = 1;
+    public static final Integer UNDELETED = 0;
+
+
 }

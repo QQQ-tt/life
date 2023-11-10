@@ -12,6 +12,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * <p>
  *  前端控制器
@@ -44,6 +46,14 @@ public class UserManagementController {
     @Operation(summary = "His获取")
     public Result<IPage<UserManagementHisVO>> userForHisList(@RequestBody UserManagementDTO dto) {
         return Result.success(userManagementService.userForHisList(dto));
+    }
+
+
+
+    @PostMapping("/saveBatchUser")
+    @Operation(summary = "批量插入患者")
+    public Result<Boolean> saveBatchUser(@RequestBody List<UserManagement> dto) {
+        return Result.success(userManagementService.saveBatchUser(dto));
     }
 
 

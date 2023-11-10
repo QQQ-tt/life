@@ -7,6 +7,8 @@ import com.tqsm.life.pojo.dto.UserManagementDTO;
 import com.tqsm.life.pojo.vo.UserManagementHisVO;
 import com.tqsm.life.pojo.vo.UserManagementVO;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -22,4 +24,6 @@ public interface UserManagementService extends IService<UserManagement> {
     IPage<UserManagementVO> listUserManagementPage(UserManagementDTO dto);
 
     IPage<UserManagementHisVO> userForHisList(UserManagementDTO dto);
+
+    boolean saveBatchUser(List<UserManagement> dto);
 }
