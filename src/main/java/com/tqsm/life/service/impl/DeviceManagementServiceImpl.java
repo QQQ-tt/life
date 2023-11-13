@@ -192,7 +192,7 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
                         alarmMontiorLog = new AlarmMontiorLog();
                         alarmMontiorLog.setDeviceCode(userId);
                         alarmMontiorLog.setMonitoringTime(LocalDateTime.now());
-                        alarmMontiorLog.setExceptionItem("心率(hr)异常");
+                        alarmMontiorLog.setExceptionItem("心率(bmp)");
                         alarmMontiorLog.setExceptionValue(result.getHr());
                         alarmMontiorLog.setReferenceInterval(alarmSetting.getHrLeft() + "-" + alarmSetting.getHrRight());
                         alarmMontiorLogService.saveOrUpdate(alarmMontiorLog);
@@ -204,7 +204,7 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
                         alarmMontiorLog = new AlarmMontiorLog();
                         alarmMontiorLog.setDeviceCode(userId);
                         alarmMontiorLog.setMonitoringTime(LocalDateTime.now());
-                        alarmMontiorLog.setExceptionItem("呼吸(Br)异常");
+                        alarmMontiorLog.setExceptionItem("呼吸(bmp)");
                         alarmMontiorLog.setExceptionValue(result.getBr());
                         alarmMontiorLog.setReferenceInterval(alarmSetting.getBrLeft() + "-" + alarmSetting.getBrRight());
                         alarmMontiorLogService.saveOrUpdate(alarmMontiorLog);
@@ -221,7 +221,7 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
                         alarmMontiorLog = new AlarmMontiorLog();
                         alarmMontiorLog.setDeviceCode(userId);
                         alarmMontiorLog.setMonitoringTime(LocalDateTime.now());
-                        alarmMontiorLog.setExceptionItem("收缩压(sbp)异常");
+                        alarmMontiorLog.setExceptionItem("收缩压(mmHg)");
                         alarmMontiorLog.setExceptionValue(bp.getSbp());
                         alarmMontiorLog.setReferenceInterval(alarmSetting.getSbpLeft() + "-" + alarmSetting.getSbpRight());
                         alarmMontiorLogService.saveOrUpdate(alarmMontiorLog);
@@ -234,7 +234,7 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
                         alarmMontiorLog = new AlarmMontiorLog();
                         alarmMontiorLog.setDeviceCode(userId);
                         alarmMontiorLog.setMonitoringTime(LocalDateTime.now());
-                        alarmMontiorLog.setExceptionItem("舒张压(dbp)异常");
+                        alarmMontiorLog.setExceptionItem("舒张压(mmHg)");
                         alarmMontiorLog.setExceptionValue(bp.getDbp());
                         alarmMontiorLog.setReferenceInterval(alarmSetting.getDbpLeft() + "-" + alarmSetting.getDbpRight());
                         alarmMontiorLogService.saveOrUpdate(alarmMontiorLog);

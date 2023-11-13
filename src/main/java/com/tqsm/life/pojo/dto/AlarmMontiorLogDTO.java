@@ -41,5 +41,10 @@ public class AlarmMontiorLogDTO extends PageDTO {
     @Schema(description = "类型（心率，呼吸，收缩压，舒张压）")
     private String type;
 
+    /**
+     * 详情还是历史记录查询
+     */
+    @Schema(description = "1是查询历史，2是查询实时详情")
+    private Integer table;
 
 }

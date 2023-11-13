@@ -22,4 +22,7 @@ public interface AlarmMontiorLogMapper extends BaseMapper<AlarmMontiorLog> {
 
     IPage<AlarmMontiorLogPageVO> alarmMontiorLogHistory(Page<AlarmMontiorLogPageVO> page,
                                                         @Param("pageDTO") AlarmMontiorLogDTO dto);
+
+    IPage<AlarmMontiorLogPageVO> alarmMontiorLogNow(Page<AlarmMontiorLogPageVO> page,
+                                                    @Param("nowDTO") AlarmMontiorLogDTO dto);
 }

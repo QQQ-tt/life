@@ -28,4 +28,27 @@
         </if>
         ORDER BY monitoring_time DESC
     </select>
+    <select id="alarmMontiorLogNow" resultType="com.tqsm.life.pojo.vo.AlarmMontiorLogPageVO">
+        SELECT
+            id,
+            device_code,
+            MAX( monitoring_time ) AS monitoring_time,
+            exception_item,
+            exception_value,
+            reference_interval
+        FROM
+            `alarm_montior_log`
+        WHERE
+            1 = 1
+        <if test="nowDTO.deviceCode != null and nowDTO.deviceCode != ''">
+            AND device_code = #{nowDTO.deviceCode}
+        </if>
+        <if test="nowDTO.type != null and nowDTO.type != ''">
+            AND exception_item like '%${nowDTO.type}%'
+        </if>
+        GROUP BY
+            exception_item
+        ORDER BY
+            monitoring_time DESC
+    </select>
 </mapper>

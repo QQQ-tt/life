@@ -43,4 +43,12 @@ public class Constants {
     public static final Integer HAVE_PER = 1;
     public static final Integer NO_HAVE_PER = 0;
 
+    /**
+     * 异常查询类型
+     * 1 历史
+     * 2 详情
+     */
+    public static final Integer TABLE_HIS = 1;
+    public static final Integer TABLE_NOW = 2;
+
 }
