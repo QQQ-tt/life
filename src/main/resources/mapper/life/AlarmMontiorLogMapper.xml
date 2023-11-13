@@ -2,4 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tqsm.life.mapper.life.AlarmMontiorLogMapper">
 
+    <select id="alarmMontiorLogHistory" resultType="com.tqsm.life.pojo.vo.AlarmMontiorLogPageVO">
+        SELECT
+        id,
+        device_code,
+        monitoring_time,
+        exception_item,
+        exception_value,
+        reference_interval
+        FROM
+        `alarm_montior_log`
+        WHERE
+        1 = 1
+        <if test="pageDTO.deviceCode != null and pageDTO.deviceCode != ''">
+            AND device_code = #{pageDTO.deviceCode}
+        </if>
+        <if test="pageDTO.type != null and pageDTO.type != ''">
+            AND exception_item like '%${pageDTO.type}%'
+        </if>
+        <if test="pageDTO.startTime != null">
+            AND monitoring_time >= #{pageDTO.startTime}
+        </if>
+        <if test="pageDTO.endTime != null">
+            AND monitoring_time &lt;= #{pageDTO.endTime}
+        </if>
+        ORDER BY monitoring_time DESC
+    </select>
 </mapper>
