@@ -367,6 +367,7 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
                             userExceptionAlertVO.setId(Constants.SBP);
                             userExceptionAlertVO.setValue(bp.getSbp());
                             userExceptionAlertVO.setName("收缩压(mmHg)");
+                            userExceptionAlertVOList.add(userExceptionAlertVO);
                             deviceExceptionAlertVO.setUpDown(Constants.ENABLE);
                         }
 
@@ -377,6 +378,7 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
                             userExceptionAlertVO.setId(Constants.DBP);
                             userExceptionAlertVO.setValue(bp.getDbp());
                             userExceptionAlertVO.setName("舒张压(mmHg)");
+                            userExceptionAlertVOList.add(userExceptionAlertVO);
                             deviceExceptionAlertVO.setUpDown(Constants.ENABLE);
                         }
                     }
