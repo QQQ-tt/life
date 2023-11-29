@@ -80,8 +80,10 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
 
     @Override
     public IPage<DeviceManagementVO> listDevice(DeviceManagementDTO dto) {
-        // TODO: 2023/11/10  
-        return baseMapper.selectPageNew(dto.getPage(), dto);
+        // TODO: 2023/11/29  
+        IPage<DeviceManagementVO> deviceManagementVOIPage = baseMapper.selectPageNew(dto.getPage(), dto);
+        return  deviceManagementVOIPage;
+
     }
 
     @Override

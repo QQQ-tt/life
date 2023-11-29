@@ -13,7 +13,8 @@
         m.id_card,
         m.tel,
         d.device_name,
-        d.device_code
+        d.device_code,
+        u.create_on
         FROM
         device_user u
         LEFT JOIN user_management m ON u.user_id = m.id

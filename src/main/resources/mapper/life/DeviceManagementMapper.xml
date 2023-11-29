@@ -40,7 +40,7 @@
             and h.person = #{dto.state}
         </if>
         <if test="dto.deviceId != null">
-            and m.id = #{dto.deviceId}
+            and u.id = #{dto.deviceId}
         </if>
     </select>
 </mapper>
