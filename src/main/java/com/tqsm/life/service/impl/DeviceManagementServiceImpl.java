@@ -1,5 +1,6 @@
 package com.tqsm.life.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -79,10 +80,19 @@ public class DeviceManagementServiceImpl extends ServiceImpl<DeviceManagementMap
     }
 
     @Override
+    @Transactional
     public IPage<DeviceManagementVO> listDevice(DeviceManagementDTO dto) {
-        // TODO: 2023/11/29  
-        IPage<DeviceManagementVO> deviceManagementVOIPage = baseMapper.selectPageNew(dto.getPage(), dto);
-        return  deviceManagementVOIPage;
+        LambdaQueryWrapper<DeviceMonitorLog> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(DeviceMonitorLog::getIsHis,Boolean.FALSE);
+        List<DeviceMonitorLog> list = deviceMonitorLogService.list(lambdaQueryWrapper);
+        list.forEach(t->{
+            Integer deviceUserId = t.getDeviceUserId();
+            boolean b = deviceMonitorLogService.theRecordingStartsAndEnds(deviceUserId);
+            if (!b){
+                throw  new DataException(DataEnums.INITIALIZE);
+            }
+        });
+        return baseMapper.selectPageNew(dto.getPage(), dto);
 
     }
 

@@ -65,6 +65,9 @@ public enum DataEnums {
     /** 请前往设置警报参数 */
     SETTING_ALERT("请前往设置警报参数", 500),
 
+    /** 状态初始化失败 */
+    INITIALIZE("状态初始化失败", 500),
+
     /** 入参数据异常 */
     DATA_IS_ABNORMAL("入参数据异常", 205);
 

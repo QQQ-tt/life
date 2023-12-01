@@ -29,26 +29,36 @@
         ORDER BY monitoring_time DESC
     </select>
     <select id="alarmMontiorLogNow" resultType="com.tqsm.life.pojo.vo.AlarmMontiorLogPageVO">
+        WITH RankedLog AS (
         SELECT
-            id,
-            device_code,
-            MAX( monitoring_time ) AS monitoring_time,
-            exception_item,
-            exception_value,
-            reference_interval
+        id,
+        device_code,
+        monitoring_time,
+        exception_item,
+        exception_value,
+        reference_interval,
+        ROW_NUMBER() OVER (PARTITION BY exception_item ORDER BY monitoring_time DESC) AS row_num
         FROM
-            `alarm_montior_log`
+        alarm_montior_log
         WHERE
-            1 = 1
+        1 =1
         <if test="nowDTO.deviceCode != null and nowDTO.deviceCode != ''">
             AND device_code = #{nowDTO.deviceCode}
         </if>
         <if test="nowDTO.type != null and nowDTO.type != ''">
             AND exception_item like '%${nowDTO.type}%'
         </if>
-        GROUP BY
-            exception_item
-        ORDER BY
-            monitoring_time DESC
+        )
+        SELECT
+        id,
+        device_code,
+        monitoring_time,
+        exception_item,
+        exception_value,
+        reference_interval
+        FROM
+        RankedLog
+        WHERE
+        row_num = 1
     </select>
 </mapper>

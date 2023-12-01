@@ -52,7 +52,7 @@ public class LifeDataSourceConfig {
             @Qualifier("dataSource") DataSource datasource) throws Exception {
         MybatisConfiguration configuration = new MybatisConfiguration();
         configuration.setLogImpl(org.apache.ibatis.logging.stdout.StdOutImpl.class);
-        configuration.setDefaultExecutorType(ExecutorType.BATCH);
+        configuration.setDefaultExecutorType(ExecutorType.SIMPLE);
         MybatisSqlSessionFactoryBean bean = new MybatisSqlSessionFactoryBean();
         GlobalConfig globalConfig = new GlobalConfig();
         globalConfig.setMetaObjectHandler(myMetaObjectHandler);
