@@ -1,4 +1,4 @@
-package com.tqsm.life.mapper;
+package com.tqsm.life.mapper.life;
 
 import com.tqsm.life.entity.DeviceHeartbeat;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;

@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tqsm.life.mapper.UserManagementMapper">
+<mapper namespace="com.tqsm.life.mapper.life.UserManagementMapper">
+    <insert id="saveBatchUser">
+        insert into user_management(name, sex, id_card, tel,
+        inpatient_no,create_by,create_on,delete_flag)
+        VALUES
+        <foreach collection="records" item="db" separator=",">
+            (#{db.name},#{db.sex},#{db.idCard},#{db.tel},#{db.inpatientNo},#{db.createBy},#{db.createOn},#{db.deleteFlag})
+        </foreach>
+    </insert>
 
     <select id="listUserManagementPage" resultType="com.tqsm.life.pojo.vo.UserManagementVO">
         SELECT
@@ -10,6 +18,8 @@
         (YEAR (CURDATE()) - SUBSTRING( id_card, 7, 4 )) AS age,
         sex,
         tel,
+        inpatient_no,
+        type,
         delete_flag
         FROM
         `user_management`

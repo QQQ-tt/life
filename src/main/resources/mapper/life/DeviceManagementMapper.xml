@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tqsm.life.mapper.life.DeviceManagementMapper">
+
+    <select id="selectPageNew" resultType="com.tqsm.life.pojo.vo.DeviceManagementVO">
+        select m.device_code,
+        m.device_name,
+        m.id,
+        u.id as device_user_id,
+        um.name,
+        um.sex,
+        um.id_card,
+        um.tel,
+        CASE
+        WHEN LENGTH(id_card) = 15 THEN
+        TIMESTAMPDIFF(YEAR, STR_TO_DATE(
+        CONCAT('19', SUBSTR(id_card, 7, 2), '-', SUBSTR(id_card, 9, 2), '-', SUBSTR(id_card, 11, 2)),
+        '%Y-%m-%d'), CURDATE())
+        WHEN LENGTH(id_card) = 18 THEN
+        TIMESTAMPDIFF(YEAR, STR_TO_DATE(
+        CONCAT(SUBSTR(id_card, 7, 4), '-', SUBSTR(id_card, 11, 2), '-', SUBSTR(id_card, 13, 2)),
+        '%Y-%m-%d'), CURDATE())
+        END AS age,
+        h.person,
+        h.online,
+        ifnull(l.is_his,true) as monitoring
+        from device_management m
+        left join device_user u on m.id = u.device_id and m.delete_flag = u.delete_flag and u.is_his = false
+        left join user_management um on u.user_id = um.id and u.delete_flag = um.delete_flag
+        left join device_heartbeat h on m.id = h.device_id and m.delete_flag = h.delete_flag
+        left join device_monitor_log l on u.id = l.device_user_id and l.update_by is null
+        where m.delete_flag = false
+        <if test="dto.deviceName != null and dto.deviceName != ''">
+            and m.device_name like '%${dto.deviceName}%'
+        </if>
+        <if test="dto.deviceCode != null and dto.deviceCode != ''">
+            and m.device_code like '%${dto.deviceCode}%'
+        </if>
+        <if test="dto.state != null">
+            and h.person = #{dto.state}
+        </if>
+        <if test="dto.deviceId != null">
+            and u.id = #{dto.deviceId}
+        </if>
+    </select>
+</mapper>

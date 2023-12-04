@@ -43,12 +43,31 @@ public enum DataEnums {
     USER_REMOVE_FAIL("用户删除失败", 201),
     /** 服务编号不匹配 */
     PLATFORM_IS_FAIL("服务编号不匹配", 205),
+    /** 暂无绑定设备，请前往绑定 */
+    BAND_DING_FILED("暂无绑定设备，请前往绑定", 205),
     /** 身份证信息错误 */
     ID_CARD_IS_FAIL("身份证信息错误", 206),
     /**
      * 数据重复
      */
     DATA_REPEAT("数据重复", 201),
+    /**
+     * 缓存
+     */
+    DATA_CACHE_NULL("缓存数据为空", 201),
+
+    /** 编辑失败 */
+    UPDATE_FAILED("编辑失败", 500),
+
+    /** 批量插入数据失败 */
+    INSERT_BATCH_FILED("批量插入数据失败", 500),
+
+    /** 请前往设置警报参数 */
+    SETTING_ALERT("请前往设置警报参数", 500),
+
+    /** 状态初始化失败 */
+    INITIALIZE("状态初始化失败", 500),
+
     /** 入参数据异常 */
     DATA_IS_ABNORMAL("入参数据异常", 205);
 

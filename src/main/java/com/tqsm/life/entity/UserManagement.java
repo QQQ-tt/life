@@ -44,4 +44,10 @@ public class UserManagement extends BaseEntity {
      */
     @TableField("tel")
     private String tel;
+
+    /**
+     * 住院证号
+     */
+    @TableField("inpatient_no")
+    private String inpatientNo;
 }

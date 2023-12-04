@@ -2,23 +2,20 @@ package com.tqsm.life.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tqsm.life.config.BaseEntity;
 import com.tqsm.life.config.exception.DataEnums;
 import com.tqsm.life.config.exception.DataException;
 import com.tqsm.life.entity.DeviceMonitorLog;
 import com.tqsm.life.entity.DeviceUser;
-import com.tqsm.life.mapper.DeviceMonitorLogMapper;
+import com.tqsm.life.mapper.life.DeviceMonitorLogMapper;
 import com.tqsm.life.pojo.dto.DeviceMonitorLogDTO;
 import com.tqsm.life.pojo.vo.DeviceMonitorLogPageVO;
-import com.tqsm.life.pojo.vo.UserManagementVO;
 import com.tqsm.life.service.DeviceMonitorLogService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tqsm.life.service.DeviceUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Objects;
 
 /**

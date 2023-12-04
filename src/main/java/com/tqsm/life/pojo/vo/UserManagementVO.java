@@ -28,4 +28,10 @@ public class UserManagementVO {
 
     @Schema(description = "手机号")
     private String tel;
+
+    @Schema(description = "住院证号")
+    private String inpatientNo;
+
+    @Schema(description = "来源 1:新建 2:his")
+    private Integer type;
 }

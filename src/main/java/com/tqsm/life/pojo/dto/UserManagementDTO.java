@@ -24,5 +24,9 @@ public class UserManagementDTO  extends PageDTO {
     @TableField("id_card")
     private String idCard;
 
+    @Schema(description = "住院证号")
+    @TableField("inpatient_no")
+    private String inpatientNo;
+
 
 }

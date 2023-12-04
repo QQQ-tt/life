@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.tqsm.life.entity.DeviceManagement;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.tqsm.life.pojo.dto.DeviceManagementDTO;
+import com.tqsm.life.pojo.vo.DeviceExceptionAlertVO;
 import com.tqsm.life.pojo.vo.DeviceManagementVO;
 import com.tqsm.life.pojo.vo.DeviceParticularsVO;
 
@@ -23,13 +24,15 @@ public interface DeviceManagementService extends IService<DeviceManagement> {
 
     boolean saveOrUpdateDevice(DeviceManagement deviceManagement);
 
-    boolean bindThePatient(int deviceId, int userId);
+    DeviceManagementVO bindThePatient(int deviceId, int userId);
 
-    boolean relieveThePatient(int deviceId);
+    DeviceManagementVO relieveThePatient(int deviceId);
 
     boolean testDevice(String deviceCode);
 
     boolean removeByDeviceId(int deviceId);
 
     DeviceParticularsVO particulars(String userId);
+
+    DeviceExceptionAlertVO exceptionAlert(String deviceCode);
 }

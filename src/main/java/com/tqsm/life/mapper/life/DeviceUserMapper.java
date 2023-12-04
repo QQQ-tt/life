@@ -1,4 +1,4 @@
-package com.tqsm.life.mapper;
+package com.tqsm.life.mapper.life;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -22,4 +22,5 @@ import org.apache.ibatis.annotations.Param;
 public interface DeviceUserMapper extends BaseMapper<DeviceUser> {
 
     IPage<DeviceUserPageVO> listDeviceUserPage(Page<UserManagementVO> page,@Param("pageDTO")DeviceUserPageDTO dto);
+
 }
