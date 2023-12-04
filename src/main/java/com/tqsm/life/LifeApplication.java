@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @EnableScheduling
-@MapperScan(basePackages = "com.tqsm.life.mapper")
 @SpringBootApplication(scanBasePackages = "com.tqsm.life")
 public class LifeApplication {
 
